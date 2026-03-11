@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="favGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#98F5FF"/>
+      <stop offset="100%" stop-color="#5CE0FF"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="#0a0a0f" stroke="url(#favGrad)" stroke-width="3"/>
+  <!-- Dog head -->
+  <ellipse cx="50" cy="55" rx="35" ry="40" fill="#C5FAFF" opacity="0.9"/>
+  <!-- Left Ear -->
+  <path d="M 20 30 Q 10 10 30 20 Z" fill="#7BB8C4"/>
+  <!-- Right Ear -->
+  <path d="M 80 30 Q 90 10 70 20 Z" fill="#7BB8C4"/>
+  <!-- Left Eye -->
+  <circle cx="38" cy="50" r="5" fill="white"/>
+  <circle cx="39" cy="51" r="2" fill="#333"/>
+  <!-- Right Eye -->
+  <circle cx="62" cy="53" r="6" fill="white"/>
+  <circle cx="61" cy="54" r="2.5" fill="#333"/>
+  <!-- Nose -->
+  <ellipse cx="50" cy="65" rx="5" ry="4" fill="#333"/>
+  <!-- Mouth -->
+  <path d="M 40 75 Q 50 82 60 75" stroke="#FF69B4" stroke-width="2" fill="none"/>
+  <!-- Tongue -->
+  <path d="M 50 78 Q 53 85 50 88 Q 47 85 50 80 Z" fill="#FF69B4"/>
+  <!-- ULGD Text -->
+  <text x="50" y="92" text-anchor="middle" fill="#98F5FF" font-size="8" font-weight="900" font-family="Arial">ULGD</text>
+</svg>

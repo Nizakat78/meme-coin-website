@@ -4,55 +4,221 @@ import AnimatedText from '@/components/AnimatedText';
 import AnimatedOnScroll from '@/components/AnimatedOnScroll';
 import MeshBackground from '@/components/MeshBackground';
 import { motion } from 'framer-motion';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
-/* ---- Origin Story: Animated Portal/Emergence ---- */
+/* ---- Origin Story: Animated Portal/Emergence (SVG) ---- */
 const OriginGraphic = () => (
-  <div className="relative w-full h-full">
-    <DotLottieReact
-      src="https://lottie.host/c5f23c16-9e62-4c67-9b91-05f7cf7a3d1e/WZy9wPbYdK.lottie"
-      loop
-      autoplay
-      className="w-full h-full"
-    />
-    <div className="absolute inset-0 bg-gradient-radial from-[rgba(152,245,255,0.1)] to-transparent pointer-events-none" />
-  </div>
+  <svg viewBox="0 0 400 400" className="w-full h-full">
+    <defs>
+      <radialGradient id="originGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(152,245,255,0.2)"/>
+        <stop offset="100%" stopColor="transparent"/>
+      </radialGradient>
+    </defs>
+    <circle cx="200" cy="200" r="150" fill="url(#originGlow)"/>
+    
+    {/* Portal rings */}
+    {[0, 1, 2, 3].map((i) => (
+      <motion.circle
+        key={i}
+        cx="200"
+        cy="200"
+        r={60 + i * 30}
+        fill="none"
+        stroke={`rgba(152,245,255,${0.15 - i * 0.03})`}
+        strokeWidth="1"
+        strokeDasharray="8 8"
+        animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
+        transition={{ duration: 30 + i * 10, repeat: Infinity, ease: "linear" }}
+        style={{ transformOrigin: 'center' }}
+      />
+    ))}
+    
+    {/* Central dog silhouette */}
+    <circle cx="200" cy="200" r="50" fill="rgba(152,245,255,0.1)" stroke="rgba(152,245,255,0.3)" strokeWidth="2"/>
+    <circle cx="185" cy="190" r="6" fill="rgba(255,255,255,0.6)"/>
+    <circle cx="215" cy="190" r="6" fill="rgba(255,255,255,0.6)"/>
+    <circle cx="187" cy="192" r="2.5" fill="#333"/>
+    <circle cx="213" cy="192" r="2.5" fill="#333"/>
+    <ellipse cx="200" cy="210" rx="8" ry="6" fill="rgba(0,0,0,0.5)"/>
+    <path d="M 190 220 Q 200 230 210 220" stroke="rgba(255,105,180,0.6)" strokeWidth="2" fill="none"/>
+    
+    {/* Energy particles */}
+    {[...Array(12)].map((_, i) => {
+      const angle = (i * 30) * Math.PI / 180;
+      const x = 200 + 100 * Math.cos(angle);
+      const y = 200 + 100 * Math.sin(angle);
+      return (
+        <motion.circle
+          key={i}
+          cx={x}
+          cy={y}
+          r="3"
+          fill="rgba(152,245,255,0.5)"
+          animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 2, repeat: Infinity, delay: i * 0.15 }}
+        />
+      );
+    })}
+  </svg>
 );
 
-/* ---- Pack/Community Illustration ---- */
+/* ---- Pack/Community Illustration (SVG) ---- */
 const PackGraphic = () => (
-  <div className="relative w-full h-full">
-    <DotLottieReact
-      src="https://lottie.host/79010375-7f28-4394-a130-9b882f059293/c06g9pQ103.lottie"
-      loop
-      autoplay
-      className="w-full h-full"
-    />
-  </div>
+  <svg viewBox="0 0 400 300" className="w-full h-full">
+    <defs>
+      <radialGradient id="packGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(184,169,255,0.15)"/>
+        <stop offset="100%" stopColor="transparent"/>
+      </radialGradient>
+    </defs>
+    <rect width="400" height="300" fill="url(#packGlow)"/>
+    
+    {/* Central large dog */}
+    <g transform="translate(200, 150)">
+      <circle cx="0" cy="0" r="50" fill="rgba(184,169,255,0.2)" stroke="rgba(184,169,255,0.4)" strokeWidth="2"/>
+      <circle cx="-20" cy="-10" r="8" fill="white"/>
+      <circle cx="20" cy="-10" r="8" fill="white"/>
+      <circle cx="-20" cy="-10" r="3" fill="#333"/>
+      <circle cx="20" cy="-10" r="3" fill="#333"/>
+      <ellipse cx="0" cy="15" rx="10" ry="8" fill="#333"/>
+      <path d="M -15 25 Q 0 35 15 25" stroke="#FF69B4" strokeWidth="2" fill="none"/>
+      <ellipse cx="-40" cy="-30" rx="15" ry="20" fill="rgba(184,169,255,0.3)"/>
+      <ellipse cx="40" cy="-30" rx="15" ry="20" fill="rgba(184,169,255,0.3)"/>
+    </g>
+    
+    {/* Smaller dogs around */}
+    {[
+      { x: 80, y: 100, scale: 0.5 },
+      { x: 320, y: 100, scale: 0.5 },
+      { x: 120, y: 230, scale: 0.4 },
+      { x: 280, y: 230, scale: 0.4 },
+    ].map((dog, i) => (
+      <g key={i} transform={`translate(${dog.x}, ${dog.y}) scale(${dog.scale})`}>
+        <circle cx="0" cy="0" r="30" fill="rgba(184,169,255,0.15)" stroke="rgba(184,169,255,0.3)" strokeWidth="1.5"/>
+        <circle cx="-10" cy="-5" r="5" fill="white"/>
+        <circle cx="10" cy="-5" r="5" fill="white"/>
+        <circle cx="-10" cy="-5" r="2" fill="#333"/>
+        <circle cx="10" cy="-5" r="2" fill="#333"/>
+        <ellipse cx="0" cy="10" rx="6" ry="4" fill="#333"/>
+      </g>
+    ))}
+    
+    {/* Connection lines */}
+    <line x1="200" y1="150" x2="80" y2="100" stroke="rgba(184,169,255,0.2)" strokeWidth="1"/>
+    <line x1="200" y1="150" x2="320" y2="100" stroke="rgba(184,169,255,0.2)" strokeWidth="1"/>
+    <line x1="200" y1="150" x2="120" y2="230" stroke="rgba(184,169,255,0.2)" strokeWidth="1"/>
+    <line x1="200" y1="150" x2="280" y2="230" stroke="rgba(184,169,255,0.2)" strokeWidth="1"/>
+  </svg>
 );
 
-/* ---- Authenticity/Unique Illustration ---- */
+/* ---- Authenticity/Unique Illustration (SVG) ---- */
 const AuthenticGraphic = () => (
-  <div className="relative w-full h-full">
-    <DotLottieReact
-      src="https://lottie.host/1ff719c9-c35e-4f3e-b8be-def6e8e39d75/XaJmq8hP9z.lottie"
-      loop
-      autoplay
-      className="w-full h-full"
-    />
-  </div>
+  <svg viewBox="0 0 400 400" className="w-full h-full">
+    <defs>
+      <radialGradient id="authGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(92,224,255,0.15)"/>
+        <stop offset="100%" stopColor="transparent"/>
+      </radialGradient>
+    </defs>
+    <circle cx="200" cy="200" r="150" fill="url(#authGlow)"/>
+    
+    {/* Diamond shape */}
+    <motion.g
+      animate={{ rotate: [0, 5, -5, 0] }}
+      transition={{ duration: 4, repeat: Infinity }}
+    >
+      <polygon points="200,50 320,200 200,350 80,200" fill="rgba(92,224,255,0.1)" stroke="rgba(92,224,255,0.4)" strokeWidth="2"/>
+      <polygon points="200,80 290,200 200,320 110,200" fill="none" stroke="rgba(92,224,255,0.25)" strokeWidth="1"/>
+      
+      {/* Star in center */}
+      <path d="M 200 140 L 215 175 L 250 175 L 220 195 L 230 230 L 200 210 L 170 230 L 180 195 L 150 175 L 185 175 Z" fill="rgba(92,224,255,0.4)"/>
+    </motion.g>
+    
+    {/* Sparkles around */}
+    {[...Array(8)].map((_, i) => {
+      const angle = (i * 45) * Math.PI / 180;
+      const x = 200 + 120 * Math.cos(angle);
+      const y = 200 + 120 * Math.sin(angle);
+      return (
+        <motion.circle
+          key={i}
+          cx={x}
+          cy={y}
+          r="4"
+          fill="rgba(92,224,255,0.5)"
+          animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.2 }}
+        />
+      );
+    })}
+  </svg>
 );
 
-/* ---- Rocket/Growth Illustration ---- */
+/* ---- Rocket/Growth Illustration (SVG) ---- */
 const GrowthGraphic = () => (
-  <div className="relative w-full h-full">
-    <DotLottieReact
-      src="https://lottie.host/aeba95e1-2e70-4f9e-99d0-9c1f30f7b1fb/rocket.lottie"
-      loop
-      autoplay
-      className="w-full h-full"
+  <svg viewBox="0 0 400 400" className="w-full h-full">
+    <defs>
+      <radialGradient id="growthGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(255,184,217,0.15)"/>
+        <stop offset="100%" stopColor="transparent"/>
+      </radialGradient>
+    </defs>
+    <circle cx="200" cy="200" r="150" fill="url(#growthGlow)"/>
+    
+    {/* Rocket */}
+    <motion.g
+      animate={{ y: [0, -15, 0] }}
+      transition={{ duration: 3, repeat: Infinity }}
+    >
+      <g transform="translate(200, 200)">
+        {/* Body */}
+        <path d="M 0 -60 L -25 20 L 25 20 Z" fill="rgba(255,184,217,0.3)" stroke="rgba(255,184,217,0.5)" strokeWidth="2"/>
+        {/* Window */}
+        <circle cx="0" cy="-20" r="12" fill="rgba(152,245,255,0.2)" stroke="rgba(152,245,255,0.4)" strokeWidth="2"/>
+        {/* Fins */}
+        <path d="M -25 10 L -45 30 L -25 20 Z" fill="rgba(255,184,217,0.25)" stroke="rgba(255,184,217,0.4)" strokeWidth="1"/>
+        <path d="M 25 10 L 45 30 L 25 20 Z" fill="rgba(255,184,217,0.25)" stroke="rgba(255,184,217,0.4)" strokeWidth="1"/>
+        {/* Flame */}
+        <motion.path
+          d="M -15 25 Q 0 60 15 25 Z"
+          fill="#FFB8D9"
+          animate={{ scaleY: [1, 1.3, 1] }}
+          transition={{ duration: 0.2, repeat: Infinity }}
+        />
+        <motion.path
+          d="M -8 25 Q 0 50 8 25 Z"
+          fill="#FF69B4"
+          animate={{ scaleY: [1, 1.4, 1] }}
+          transition={{ duration: 0.15, repeat: Infinity }}
+        />
+      </g>
+    </motion.g>
+    
+    {/* Trajectory line */}
+    <motion.path
+      d="M 200 400 Q 200 300 200 200"
+      fill="none"
+      stroke="rgba(255,184,217,0.2)"
+      strokeWidth="2"
+      strokeDasharray="8 8"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: 1 }}
+      transition={{ duration: 2 }}
     />
-  </div>
+    
+    {/* Stars */}
+    {[...Array(15)].map((_, i) => (
+      <motion.circle
+        key={i}
+        cx={40 + (i * 23) % 320}
+        cy={40 + (i * 27) % 320}
+        r={1 + (i % 2)}
+        fill="white"
+        animate={{ opacity: [0.3, 1, 0.3] }}
+        transition={{ duration: 2 + (i % 3), repeat: Infinity, delay: i * 0.1 }}
+      />
+    ))}
+  </svg>
 );
 
 /* ---- Floating Particles Background ---- */
@@ -126,7 +292,7 @@ export default function AboutPage() {
       </div>
 
       <div className="container mx-auto px-6 lg:px-8 pb-20 max-w-6xl relative z-10">
-        {/* ===== ORIGIN STORY with Large Lottie Graphic ===== */}
+        {/* ===== ORIGIN STORY with Large SVG Graphic ===== */}
         <AnimatedOnScroll className="grid md:grid-cols-2 gap-12 items-center mb-28">
           <motion.div
             initial={{ opacity: 0, x: -40 }}

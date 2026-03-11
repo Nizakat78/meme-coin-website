@@ -5,8 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import AnimatedText from '@/components/AnimatedText';
 import AnimatedOnScroll from '@/components/AnimatedOnScroll';
-import MeshBackground from '@/components/MeshBackground';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import ThreeBackground from '@/components/ThreeBackground';
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -25,8 +24,7 @@ const itemVariants: Variants = {
   },
 };
 
-
-/* ---- Large Hero Graphic: Dog in Space Suit on Moon ---- */
+/* ---- Large Hero Graphic: Dog in Space Suit on Moon (SVG) ---- */
 const HeroGraphic = () => {
   const [isClicked, setIsClicked] = useState(false);
 
@@ -37,235 +35,203 @@ const HeroGraphic = () => {
   return (
     <motion.div
       onClick={handleClick}
-      animate={{ y: isClicked ? [0, -20, 0] : 0 }} // Up and down animation
+      animate={{ y: isClicked ? [0, -20, 0] : 0 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      style={{ cursor: 'pointer' }} // Indicate it's clickable
+      style={{ cursor: 'pointer' }}
+      className="w-full h-full"
     >
-      <DotLottieReact
-        src="https://lottie.host/80a0680d-82d6-448e-8a0a-0158a25c1619/f2o0hTf4X2.json"
-        loop
-        autoplay
-        className="w-full h-full pointer-events-none"
-      />
+      <svg viewBox="0 0 400 400" className="w-full h-full">
+        {/* Background glow */}
+        <defs>
+          <radialGradient id="heroGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="rgba(152,245,255,0.15)"/>
+            <stop offset="100%" stopColor="transparent"/>
+          </radialGradient>
+        </defs>
+        <circle cx="200" cy="200" r="150" fill="url(#heroGlow)"/>
+        
+        {/* Moon surface */}
+        <ellipse cx="200" cy="350" rx="180" ry="60" fill="rgba(152,245,255,0.05)" stroke="rgba(152,245,255,0.2)" strokeWidth="1"/>
+        
+        {/* Dog astronaut body */}
+        <g transform="translate(200, 220)">
+          {/* Spacesuit body */}
+          <ellipse cx="0" cy="40" rx="50" ry="60" fill="rgba(152,245,255,0.2)" stroke="rgba(152,245,255,0.4)" strokeWidth="2"/>
+          
+          {/* Helmet */}
+          <circle cx="0" cy="-30" r="45" fill="rgba(152,245,255,0.1)" stroke="rgba(152,245,255,0.5)" strokeWidth="2"/>
+          <ellipse cx="0" cy="-25" rx="35" ry="30" fill="rgba(152,245,255,0.05)" stroke="rgba(152,245,255,0.3)" strokeWidth="1"/>
+          
+          {/* Dog face inside helmet */}
+          <circle cx="-15" cy="-35" r="6" fill="white" opacity="0.9"/>
+          <circle cx="-15" cy="-35" r="2.5" fill="#333"/>
+          <circle cx="15" cy="-35" r="6" fill="white" opacity="0.9"/>
+          <circle cx="15" cy="-35" r="2.5" fill="#333"/>
+          <ellipse cx="0" cy="-25" rx="8" ry="6" fill="#333"/>
+          <path d="M -10 -15 Q 0 -5 10 -15" stroke="#FF69B4" strokeWidth="2" fill="none"/>
+          <path d="M 0 -10 Q 3 -5 0 0" stroke="#FF69B4" strokeWidth="2" fill="none"/>
+          
+          {/* Ears */}
+          <ellipse cx="-40" cy="-40" rx="15" ry="20" fill="rgba(152,245,255,0.3)" stroke="rgba(152,245,255,0.5)" strokeWidth="1"/>
+          <ellipse cx="40" cy="-40" rx="15" ry="20" fill="rgba(152,245,255,0.3)" stroke="rgba(152,245,255,0.5)" strokeWidth="1"/>
+          
+          {/* Backpack */}
+          <rect x="-55" y="-20" width="15" height="50" rx="3" fill="rgba(152,245,255,0.25)" stroke="rgba(152,245,255,0.4)" strokeWidth="1"/>
+          <rect x="40" y="-20" width="15" height="50" rx="3" fill="rgba(152,245,255,0.25)" stroke="rgba(152,245,255,0.4)" strokeWidth="1"/>
+        </g>
+        
+        {/* Rocket */}
+        <motion.g
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <g transform="translate(320, 100)">
+            <path d="M 0 60 L -20 100 L 20 100 Z" fill="rgba(152,245,255,0.3)" stroke="rgba(152,245,255,0.5)" strokeWidth="1"/>
+            <circle cx="0" cy="110" r="15" fill="rgba(152,245,255,0.15)" stroke="rgba(152,245,255,0.4)" strokeWidth="1"/>
+            <motion.path
+              d="M -10 120 Q 0 150 10 120 Z"
+              fill="#FFB8D9"
+              animate={{ scaleY: [1, 1.3, 1] }}
+              transition={{ duration: 0.3, repeat: Infinity }}
+            />
+          </g>
+        </motion.g>
+        
+        {/* Stars */}
+        {[...Array(20)].map((_, i) => (
+          <motion.circle
+            key={i}
+            cx={30 + (i * 18) % 340}
+            cy={30 + (i * 23) % 200}
+            r={1 + (i % 3)}
+            fill="white"
+            animate={{ opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 2 + (i % 3), repeat: Infinity, delay: i * 0.1 }}
+          />
+        ))}
+      </svg>
     </motion.div>
   );
 };
-  // <img src="https://picsum.photos/520/520" alt="Hero Graphic" />
-  // <svg viewBox="0 0 520 520" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-  //   <defs>
-  //     <linearGradient id="hSuit" x1="0" y1="0" x2="0" y2="1">
-  //       <stop offset="0%" stopColor="#98F5FF"/>
-  //       <stop offset="100%" stopColor="#5CE0FF"/>
-  //     </linearGradient>
-  //     <linearGradient id="hVisor" x1="0" y1="0" x2="1" y2="1">
-  //       <stop offset="0%" stopColor="#60a5fa"/>
-  //       <stop offset="50%" stopColor="#3b82f6"/>
-  //       <stop offset="100%" stopColor="#1d4ed8"/>
-  //     </linearGradient>
-  //     <linearGradient id="hFlame" x1="0" y1="0" x2="0" y2="1">
-  //       <stop offset="0%" stopColor="#2ECBFF"/>
-  //       <stop offset="50%" stopColor="#B8A9FF"/>
-  //       <stop offset="100%" stopColor="#B8A9FF"/>
-  //     </linearGradient>
-  //     <radialGradient id="hGlow" cx="50%" cy="40%" r="50%">
-  //       <stop offset="0%" stopColor="rgba(152,245,255,0.25)"/>
-  //       <stop offset="100%" stopColor="transparent"/>
-  //     </radialGradient>
-  //     <radialGradient id="hMoon" cx="40%" cy="35%" r="60%">
-  //       <stop offset="0%" stopColor="#3a3a4a"/>
-  //       <stop offset="100%" stopColor="#1a1a24"/>
-  //     </radialGradient>
-  //     <filter id="hSoftGlow">
-  //       <feGaussianBlur stdDeviation="6" result="blur"/>
-  //       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-  //     </filter>
-  //     <filter id="hStarGlow">
-  //       <feGaussianBlur stdDeviation="2" result="blur"/>
-  //       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-  //     </filter>
-  //   </defs>
-  //   {/* Space background glow */}
-  //   <circle cx="260" cy="220" r="220" fill="url(#hGlow)"/>
-  //   {/* Stars scattered */}
-  //   {[[70,40,2.5],[430,55,2],[90,140,1.5],[450,170,2],[55,280,1.5],[460,300,1],[180,30,1],[380,35,2.5],[140,420,2],[400,440,1.5],[30,380,1],[490,380,2]].map(([cx,cy,r], i) => (
-  //     <circle key={i} cx={cx} cy={cy} r={r} fill={i%3===0?"#98F5FF":i%3===1?"#B8A9FF":"#FFB8D9"} opacity={0.3+((i%4)*0.15)} filter="url(#hStarGlow)"/>
-  //   ))}
-  //   {/* Twinkling cross stars */}
-  //   {[[120,80,"#98F5FF"],[400,120,"#B8A9FF"],[80,350,"#FFB8D9"]].map(([x,y,c], i) => (
-  //     <g key={`cs${i}`}>
-  //       <line x1={Number(x)-8} y1={Number(y)} x2={Number(x)+8} y2={Number(y)} stroke={String(c)} strokeWidth="1" opacity="0.4"/>
-  //       <line x1={Number(x)} y1={Number(y)-8} x2={Number(x)} y2={Number(y)+8} stroke={String(c)} strokeWidth="1" opacity="0.4"/>
-  //     </g>
-  //   ))}
-  //   {/* Moon surface */}
-  //   <ellipse cx="260" cy="430" rx="200" ry="60" fill="url(#hMoon)"/>
-  //   <circle cx="200" cy="420" r="15" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5"/>
-  //   <circle cx="310" cy="435" r="10" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" strokeWidth="0.5"/>
-  //   <circle cx="170" cy="440" r="8" fill="rgba(255,255,255,0.02)"/>
-  //   <circle cx="350" cy="425" r="12" fill="rgba(255,255,255,0.015)"/>
-  //   {/* ULGD Flag on moon */}
-  //   <line x1="360" y1="310" x2="360" y2="410" stroke="#70D4E5" strokeWidth="2"/>
-  //   <rect x="362" y="312" width="50" height="32" rx="2" fill="rgba(152,245,255,0.2)" stroke="#98F5FF" strokeWidth="1"/>
-  //   <text x="387" y="333" textAnchor="middle" fill="#98F5FF" fontSize="11" fontWeight="800" fontFamily="Inter, sans-serif">ULGD</text>
-  //   {/* Dog astronaut body */}
-  //   <ellipse cx="220" cy="330" rx="55" ry="65" fill="url(#hSuit)" filter="url(#hSoftGlow)" opacity="0.9"/>
-  //   {/* Suit details */}
-  //   <rect x="195" y="360" width="20" height="35" rx="8" fill="#70D4E5" stroke="#5ABDC9" strokeWidth="1"/>
-  //   <rect x="225" y="360" width="20" height="35" rx="8" fill="#70D4E5" stroke="#5ABDC9" strokeWidth="1"/>
-  //   {/* Backpack/jetpack */}
-  //   <rect x="172" y="300" width="20" height="45" rx="6" fill="#7DE8F5" stroke="#70D4E5" strokeWidth="1"/>
-  //   <circle cx="182" cy="310" r="3" fill="#2ECBFF" opacity="0.8"/>
-  //   <circle cx="182" cy="325" r="3" fill="#2ECBFF" opacity="0.6"/>
-  //   {/* Jetpack flame */}
-  //   <path d="M175 345 Q178 370 182 385 Q186 370 189 345 Z" fill="url(#hFlame)" opacity="0.7"/>
-  //   <path d="M178 345 Q180 362 182 372 Q184 362 186 345 Z" fill="#98F5FF" opacity="0.5"/>
-  //   {/* Helmet */}
-  //   <circle cx="220" cy="270" r="50" fill="rgba(197,250,255,0.15)" stroke="rgba(152,245,255,0.5)" strokeWidth="2"/>
-  //   {/* Visor */}
-  //   <ellipse cx="220" cy="268" rx="38" ry="36" fill="url(#hVisor)" opacity="0.85"/>
-  //   {/* Visor reflection */}
-  //   <path d="M195 250 Q205 240 225 245" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="2" strokeLinecap="round"/>
-  //   {/* Dog face inside visor */}
-  //   <ellipse cx="220" cy="272" rx="25" ry="22" fill="#C5FAFF"/>
-  //   {/* Ears poking inside helmet */}
-  //   <path d="M200 255 Q193 240 207 248 Z" fill="#7BB8C4"/>
-  //   <path d="M240 255 Q247 240 233 248 Z" fill="#7BB8C4"/>
-  //   {/* Eyes - wonky */}
-  //   <circle cx="210" cy="265" r="5" fill="#fff"/><circle cx="212" cy="267" r="2" fill="#111"/>
-  //   <circle cx="232" cy="268" r="6" fill="#fff"/><circle cx="230" cy="270" r="2" fill="#111"/>
-  //   {/* Nose */}
-  //   <ellipse cx="220" cy="280" rx="3.5" ry="3" fill="#111"/>
-  //   {/* Mouth & tongue */}
-  //   <path d="M210 288 Q220 296 230 288" stroke="#111" strokeWidth="1.2" fill="none"/>
-  //   <path d="M220 288 Q223 295 221 300 Q218 297 220 289 Z" fill="#FF69B4"/>
-  //   {/* Ugly spots */}
-  //   <circle cx="207" cy="275" r="1.5" fill="#5E9BA8" opacity="0.6"/>
-  //   <circle cx="233" cy="278" r="1" fill="#5E9BA8" opacity="0.6"/>
-  //   {/* Arms */}
-  //   <path d="M165 310 Q140 320 130 340" stroke="#70D4E5" strokeWidth="10" fill="none" strokeLinecap="round"/>
-  //   <circle cx="128" cy="342" r="8" fill="#7DE8F5" stroke="#70D4E5" strokeWidth="1"/>
-  //   <path d="M275 310 Q300 320 310 340" stroke="#70D4E5" strokeWidth="10" fill="none" strokeLinecap="round"/>
-  //   <circle cx="312" cy="342" r="8" fill="#7DE8F5" stroke="#70D4E5" strokeWidth="1"/>
-  //   {/* Waving hand holding coin */}
-  //   <circle cx="128" cy="342" r="14" fill="rgba(152,245,255,0.2)" stroke="#98F5FF" strokeWidth="1.5"/>
-  //   <text x="128" y="347" textAnchor="middle" fill="#98F5FF" fontSize="10" fontWeight="800" fontFamily="Inter">$</text>
-  //   {/* Orbit ring around dog */}
-  //   <ellipse cx="220" cy="320" rx="120" ry="30" fill="none" stroke="rgba(152,245,255,0.12)" strokeWidth="1" strokeDasharray="6 4"/>
-  //   {/* Small orbiting token */}
-  //   <circle cx="340" cy="315" r="8" fill="rgba(152,245,255,0.25)" stroke="#98F5FF" strokeWidth="1"/>
-  //   <text x="340" y="318" textAnchor="middle" fill="#98F5FF" fontSize="7" fontWeight="700">U</text>
-  //   {/* Nebula clouds */}
-  //   <ellipse cx="80" cy="180" rx="50" ry="20" fill="rgba(184,169,255,0.06)"/>
-  //   <ellipse cx="440" cy="220" rx="40" ry="15" fill="rgba(255,184,217,0.05)"/>
-  // </svg>
 
 /* ---- Feature Section Graphics ---- */
 const SupplyGraphic = () => (
-  <DotLottieReact
-    src="https://lottie.host/9c333066-512c-473d-8380-6927d6d1d4d0/vQ9x5gQ103.lottie"
-    loop
-    autoplay
-    className="w-full h-full"
-  />
-  // <img src="https://picsum.photos/120/120" alt="Supply Graphic" />
-  // <svg viewBox="0 0 120 120" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-  //   <radialGradient id="sg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="rgba(152,245,255,0.2)"/><stop offset="100%" stopColor="transparent"/></radialGradient>
-  //   <circle cx="60" cy="60" r="55" fill="url(#sg1)"/>
-  //   <circle cx="60" cy="60" r="38" fill="rgba(17,17,24,0.8)" stroke="#98F5FF" strokeWidth="2"/>
-  //   <text x="60" y="55" textAnchor="middle" fill="#98F5FF" fontSize="16" fontWeight="900" fontFamily="Inter">1B</text>
-  //   <text x="60" y="72" textAnchor="middle" fill="rgba(152,245,255,0.5)" fontSize="7" fontFamily="Inter">TOKENS</text>
-  //   {/* Stacked coins below */}
-  //   <ellipse cx="60" cy="95" rx="18" ry="5" fill="rgba(152,245,255,0.15)" stroke="rgba(152,245,255,0.3)" strokeWidth="0.5"/>
-  //   <ellipse cx="60" cy="90" rx="18" ry="5" fill="rgba(152,245,255,0.2)" stroke="rgba(152,245,255,0.3)" strokeWidth="0.5"/>
-  //   <ellipse cx="60" cy="85" rx="18" ry="5" fill="rgba(152,245,255,0.25)" stroke="rgba(152,245,255,0.4)" strokeWidth="0.5"/>
-  // </svg>
+  <svg viewBox="0 0 200 200" className="w-full h-full">
+    <defs>
+      <radialGradient id="supplyGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(152,245,255,0.2)"/>
+        <stop offset="100%" stopColor="transparent"/>
+      </radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="80" fill="url(#supplyGlow)"/>
+    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(152,245,255,0.3)" strokeWidth="2" strokeDasharray="8 4"/>
+    <text x="100" y="95" textAnchor="middle" fill="#98F5FF" fontSize="28" fontWeight="900">1B</text>
+    <text x="100" y="120" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">SUPPLY</text>
+    <motion.circle cx="100" cy="100" r="50" fill="none" stroke="rgba(152,245,255,0.2)" strokeWidth="1">
+      <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="20s" repeatCount="indefinite"/>
+    </motion.circle>
+  </svg>
 );
 
 const ZeroTaxGraphic = () => (
-  <DotLottieReact
-    src="https://lottie.host/e06b9777-6d65-4f27-a06f-40e15998797f/fQ9x5gQ103.lottie"
-    loop
-    autoplay
-    className="w-full h-full"
-  />
-  // <img src="https://picsum.photos/120/120" alt="Zero Tax Graphic" />
-  // <svg viewBox="0 0 120 120" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-  //   <radialGradient id="zt1" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="rgba(168,255,212,0.2)"/><stop offset="100%" stopColor="transparent"/></radialGradient>
-  //   <circle cx="60" cy="60" r="55" fill="url(#zt1)"/>
-  //   <circle cx="60" cy="55" r="38" fill="rgba(17,17,24,0.8)" stroke="#A8FFD4" strokeWidth="2"/>
-  //   <text x="60" y="50" textAnchor="middle" fill="#A8FFD4" fontSize="22" fontWeight="900" fontFamily="Inter">0%</text>
-  //   <text x="60" y="67" textAnchor="middle" fill="rgba(168,255,212,0.5)" fontSize="7" fontFamily="Inter">BUY/SELL TAX</text>
-  //   {/* Shield shape */}
-  //   <path d="M60 80 L45 88 Q60 105 75 88 Z" fill="rgba(168,255,212,0.12)" stroke="rgba(168,255,212,0.3)" strokeWidth="0.8"/>
-  //   <path d="M55 92 L58 96 L66 88" fill="none" stroke="#A8FFD4" strokeWidth="1.5" strokeLinecap="round"/>
-  // </svg>
+  <svg viewBox="0 0 200 200" className="w-full h-full">
+    <defs>
+      <radialGradient id="zeroGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(92,224,255,0.2)"/>
+        <stop offset="100%" stopColor="transparent"/>
+      </radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="80" fill="url(#zeroGlow)"/>
+    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(92,224,255,0.3)" strokeWidth="2"/>
+    <text x="100" y="110" textAnchor="middle" fill="#5CE0FF" fontSize="48" fontWeight="900">0%</text>
+    <motion.path d="M 60 100 L 85 125 L 140 70" fill="none" stroke="#5CE0FF" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+      <animate attributeName="stroke-dasharray" from="0 200" to="200 0" dur="1s" fill="freeze"/>
+    </motion.path>
+  </svg>
 );
 
 const CommunityGraphicSmall = () => (
-  <DotLottieReact
-    src="https://lottie.host/79010375-7f28-4394-a130-9b882f059293/c06g9pQ103.lottie"
-    loop
-    autoplay
-    className="w-full h-full"
-  />
-  // <img src="https://picsum.photos/120/120" alt="Community Graphic" />
-  // <svg viewBox="0 0 120 120" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-  //   <radialGradient id="cg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="rgba(184,169,255,0.2)"/><stop offset="100%" stopColor="transparent"/></radialGradient>
-  //   <circle cx="60" cy="60" r="55" fill="url(#cg1)"/>
-  //   {/* Central person */}
-  //   <circle cx="60" cy="42" r="8" fill="rgba(184,169,255,0.3)" stroke="#B8A9FF" strokeWidth="1.2"/>
-  //   <path d="M45 62 Q45 52 60 50 Q75 52 75 62" fill="rgba(184,169,255,0.2)" stroke="#B8A9FF" strokeWidth="1"/>
-  //   {/* Left person */}
-  //   <circle cx="30" cy="55" r="6" fill="rgba(152,245,255,0.25)" stroke="#5CE0FF" strokeWidth="0.8"/>
-  //   <path d="M20 70 Q20 63 30 61 Q40 63 40 70" fill="rgba(152,245,255,0.15)" stroke="#5CE0FF" strokeWidth="0.8"/>
-  //   {/* Right person */}
-  //   <circle cx="90" cy="55" r="6" fill="rgba(255,184,217,0.25)" stroke="#FFB8D9" strokeWidth="0.8"/>
-  //   <path d="M80 70 Q80 63 90 61 Q100 63 100 70" fill="rgba(255,184,217,0.15)" stroke="#FFB8D9" strokeWidth="0.8"/>
-  //   {/* Connection lines */}
-  //   <line x1="42" y1="50" x2="52" y2="48" stroke="rgba(152,245,255,0.2)" strokeWidth="0.8" strokeDasharray="2 2"/>
-  //   <line x1="68" y1="48" x2="83" y2="50" stroke="rgba(255,184,217,0.2)" strokeWidth="0.8" strokeDasharray="2 2"/>
-  //   {/* More tiny people at bottom */}
-  //   {[[35,82],[50,88],[60,85],[70,88],[85,82]].map(([x,y],i)=>(
-  //     <g key={i}><circle cx={x} cy={y-6} r="3" fill={`rgba(255,255,255,${0.08+i*0.02})`}/><path d={`M${x-4} ${y} Q${x-4} ${y-4} ${x} ${y-5} Q${x+4} ${y-4} ${x+4} ${y}`} fill={`rgba(255,255,255,${0.05+i*0.02})`}/></g>
-  //   ))}
-  //   <text x="60" y="108" textAnchor="middle" fill="rgba(184,169,255,0.5)" fontSize="6.5" fontFamily="Inter" fontWeight="600">COMMUNITY</text>
-  // </svg>
+  <svg viewBox="0 0 200 200" className="w-full h-full">
+    <defs>
+      <radialGradient id="commGlowSmall" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(184,169,255,0.2)"/>
+        <stop offset="100%" stopColor="transparent"/>
+      </radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="80" fill="url(#commGlowSmall)"/>
+    {/* Central node */}
+    <circle cx="100" cy="100" r="20" fill="rgba(184,169,255,0.2)" stroke="rgba(184,169,255,0.4)" strokeWidth="2"/>
+    {/* Outer nodes */}
+    {[0, 120, 240].map((angle, i) => {
+      const rad = (angle * Math.PI) / 180;
+      const x = 100 + 50 * Math.cos(rad);
+      const y = 100 + 50 * Math.sin(rad);
+      return (
+        <g key={i}>
+          <line x1="100" y1="100" x2={x} y2={y} stroke="rgba(184,169,255,0.3)" strokeWidth="1.5"/>
+          <circle cx={x} cy={y} r="12" fill="rgba(184,169,255,0.15)" stroke="rgba(184,169,255,0.4)" strokeWidth="1.5"/>
+          <circle cx={x} cy={y} r="5" fill="rgba(184,169,255,0.5)"/>
+        </g>
+      );
+    })}
+  </svg>
 );
 
 /* ---- Stats Section Illustration ---- */
 const StatsGraphic = () => (
-  <DotLottieReact
-    src="https://lottie.host/ebbf6774-6014-41d3-a442-9f37c35a828e/M5pW3gQ103.lottie"
-    loop
-    autoplay
-    className="w-full h-full"
-  />
-  // <img src="https://picsum.photos/500/200" alt="Stats Graphic" />
-  // <svg viewBox="0 0 500 200" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-  //   <defs>
-  //     <linearGradient id="bar1" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stopColor="#98F5FF"/><stop offset="100%" stopColor="rgba(152,245,255,0.3)"/></linearGradient>
-  //     <linearGradient id="bar2" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stopColor="#5CE0FF"/><stop offset="100%" stopColor="rgba(152,245,255,0.3)"/></linearGradient>
-  //     <linearGradient id="bar3" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stopColor="#B8A9FF"/><stop offset="100%" stopColor="rgba(184,169,255,0.3)"/></linearGradient>
-  //   </defs>
-  //   {/* Bars */}
-  //   <rect x="80" y="60" width="40" height="120" rx="4" fill="url(#bar1)" opacity="0.4"/>
-  //   <rect x="160" y="30" width="40" height="150" rx="4" fill="url(#bar2)" opacity="0.4"/>
-  //   <rect x="240" y="80" width="40" height="100" rx="4" fill="url(#bar3)" opacity="0.4"/>
-  //   <rect x="320" y="45" width="40" height="135" rx="4" fill="url(#bar1)" opacity="0.3"/>
-  //   <rect x="400" y="20" width="40" height="160" rx="4" fill="url(#bar2)" opacity="0.35"/>
-  //   {/* Trend line */}
-  //   <path d="M100 65 L180 35 L260 85 L340 50 L420 25" fill="none" stroke="#98F5FF" strokeWidth="2" opacity="0.6" strokeLinecap="round"/>
-  //   {/* Dots on line */}
-  //   <circle cx="100" cy="65" r="4" fill="#98F5FF" opacity="0.8"/>
-  //   <circle cx="180" cy="35" r="4" fill="#98F5FF" opacity="0.8"/>
-  //   <circle cx="260" cy="85" r="4" fill="#98F5FF" opacity="0.8"/>
-  //   <circle cx="340" cy="50" r="4" fill="#98F5FF" opacity="0.8"/>
-  //   <circle cx="420" cy="25" r="4" fill="#98F5FF" opacity="0.8"/>
-  //   {/* Arrow going up */}
-  //   <path d="M430 30 L445 15 L440 25 L450 22" fill="none" stroke="#A8FFD4" strokeWidth="2" strokeLinecap="round"/>
-  //   {/* Base line */}
-  //   <line x1="60" y1="180" x2="460" y2="180" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
-  // </svg>
+  <svg viewBox="0 0 400 300" className="w-full h-full">
+    <defs>
+      <radialGradient id="statsGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(152,245,255,0.15)"/>
+        <stop offset="100%" stopColor="transparent"/>
+      </radialGradient>
+    </defs>
+    <rect width="400" height="300" fill="url(#statsGlow)"/>
+    
+    {/* Chart bars */}
+    {[40, 80, 120, 160, 200, 240, 280].map((x, i) => {
+      const heights = [60, 100, 80, 140, 120, 180, 160];
+      return (
+        <motion.g key={i}>
+          <rect x={x} y={250 - heights[i]} width="25" height={heights[i]} fill="rgba(152,245,255,0.2)" stroke="rgba(152,245,255,0.4)" strokeWidth="1" rx="3">
+            <animate attributeName="height" from="0" to={heights[i]} dur="0.8s" fill="freeze"/>
+          </rect>
+        </motion.g>
+      );
+    })}
+    
+    {/* Trend line */}
+    <motion.path
+      d="M 40 190 L 100 150 L 160 170 L 220 110 L 280 130 L 340 70"
+      fill="none"
+      stroke="rgba(152,245,255,0.6)"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: 1 }}
+      transition={{ duration: 1.5, delay: 0.5 }}
+    />
+    
+    {/* Data points */}
+    {[
+      { x: 40, y: 190 }, { x: 100, y: 150 }, { x: 160, y: 170 },
+      { x: 220, y: 110 }, { x: 280, y: 130 }, { x: 340, y: 70 }
+    ].map((point, i) => (
+      <motion.circle
+        key={i}
+        cx={point.x}
+        cy={point.y}
+        r="5"
+        fill="rgba(152,245,255,0.3)"
+        stroke="rgba(152,245,255,0.6)"
+        strokeWidth="2"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 0.8 + (i * 0.1) }}
+      />
+    ))}
+  </svg>
 );
 
 /* ---- Floating Geometric Decorations ---- */
@@ -284,20 +250,9 @@ const FloatingDecorations = () => (
         }}
         transition={{ duration: dur, repeat: Infinity, ease: "easeInOut", delay: i * 1.5 }}
       >
-                    <DotLottieReact
-                      src={`https://lottie.host/80a0680d-82d6-448e-8a0a-0158a25c1619/f2o0hTf4X2.json`}
-                      loop
-                      autoplay
-                      className="w-full h-full pointer-events-none"
-                    />        {/* <img src={`https://picsum.photos/${size}/${size}?random=${i}`} alt="Floating Hexagon" className="w-full h-full object-cover" /> */}
-        {/* <svg viewBox="0 0 100 100" className="w-full h-full">
-          <polygon
-            points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5"
-            fill="none"
-            stroke={i % 3 === 0 ? "rgba(152,245,255,0.15)" : i % 3 === 1 ? "rgba(184,169,255,0.12)" : "rgba(255,184,217,0.1)"}
-            strokeWidth="1"
-          />
-        </svg> */}
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <polygon points="50,5 90,25 90,75 50,95 10,75 10,25" fill="none" stroke="rgba(152,245,255,0.2)" strokeWidth="1"/>
+        </svg>
       </motion.div>
     ))}
     {/* Floating Diamonds */}
@@ -313,14 +268,9 @@ const FloatingDecorations = () => (
         }}
         transition={{ duration: dur, repeat: Infinity, ease: "easeInOut", delay: i * 2 }}
       >
-        <DotLottieReact
-          src={`https://lottie.host/e06b9777-6d65-4f27-a06f-40e15998797f/fQ9x5gQ103.lottie`}
-          loop
-          autoplay
-          className="w-full h-full"
-        />
-        {/* <img src={`https://picsum.photos/${size}/${size}?random=${i + 10}`} alt="Floating Diamond" className="w-full h-full object-cover" /> */}
-        {/* <div className="w-full h-full border border-[rgba(152,245,255,0.08)] rotate-45" /> */}
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <polygon points="50,5 95,50 50,95 5,50" fill="none" stroke="rgba(184,169,255,0.15)" strokeWidth="1"/>
+        </svg>
       </motion.div>
     ))}
     {/* Floating Circles */}
@@ -342,62 +292,9 @@ const FloatingDecorations = () => (
           opacity: [0.3, 0.6, 0.3]
         }}
         transition={{ duration: 8 + i * 2, repeat: Infinity, ease: "easeInOut", delay: i * 0.8 }}
-      >
-        <DotLottieReact
-          src={`https://lottie.host/79010375-7f28-4394-a130-9b882f059293/c06g9pQ103.lottie`}
-          loop
-          autoplay
-          className="w-full h-full rounded-full"
-        />
-        {/* <img src={`https://picsum.photos/${size}/${size}?random=${i + 20}`} alt="Floating Circle" className="w-full h-full object-cover rounded-full" /> */}
-      </motion.div>
+      />
     ))}
   </>
-);
-
-/* ---- Liquid Wave Divider ---- */
-const LiquidWaveDivider = () => (
-  <div className="relative z-10 w-full h-20 overflow-hidden">
-    <DotLottieReact
-      src="https://lottie.host/80a0680d-82d6-448e-8a0a-0158a25c1619/f2o0hTf4X2.json" // Placeholder Lottie URL
-      loop
-      autoplay
-      className="w-full h-full"
-    />
-    {/* <svg viewBox="0 0 500 100" preserveAspectRatio="none" className="w-full h-full">
-      <defs>
-        <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgba(152,245,255,0.15)" />
-          <stop offset="50%" stopColor="rgba(184,169,255,0.1)" />
-          <stop offset="100%" stopColor="rgba(152,245,255,0.15)" />
-        </linearGradient>
-      </defs>
-      <motion.path
-        d="M0,60 C150,20 350,100 500,60 L500,100 L0,100 Z"
-        fill="url(#waveGrad)"
-        animate={{
-          d: [
-            "M0,60 C150,20 350,100 500,60 L500,100 L0,100 Z",
-            "M0,60 C150,100 350,20 500,60 L500,100 L0,100 Z",
-            "M0,60 C150,20 350,100 500,60 L500,100 L0,100 Z"
-          ]
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.path
-        d="M0,70 C200,40 300,90 500,70 L500,100 L0,100 Z"
-        fill="rgba(92,224,255,0.05)"
-        animate={{
-          d: [
-            "M0,70 C200,40 300,90 500,70 L500,100 L0,100 Z",
-            "M0,70 C200,90 300,40 500,70 L500,100 L0,100 Z",
-            "M0,70 C200,40 300,90 500,70 L500,100 L0,100 Z"
-          ]
-        }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-      />
-    </svg> */}
-  </div>
 );
 
 export default function Home() {
@@ -411,7 +308,8 @@ export default function Home() {
       {/* Aurora Background Effect */}
       <div className="aurora-bg absolute inset-0 pointer-events-none z-0" />
 
-      <MeshBackground variant="warm" />
+      {/* Three.js 3D Background */}
+      <ThreeBackground />
 
       {/* Floating Decorations */}
       <FloatingDecorations />

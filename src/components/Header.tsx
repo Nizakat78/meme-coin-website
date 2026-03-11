@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -18,6 +17,35 @@ const navLinks = [
   { href: '/faq', label: 'FAQ' },
 ];
 
+/* SVG Logo Component */
+const LogoSVG = () => (
+  <svg viewBox="0 0 100 100" className="w-full h-full">
+    <g transform="translate(5, 5) scale(0.9)">
+      {/* Head */}
+      <ellipse cx="50" cy="55" rx="40" ry="45" fill="#C5FAFF" stroke="#7BB8C4" strokeWidth="1" />
+      {/* Left Ear */}
+      <path d="M 20 30 Q 10 10 30 20 Z" fill="#7BB8C4" stroke="#5E9BA8" strokeWidth="0.5" />
+      {/* Right Ear */}
+      <path d="M 80 30 Q 90 10 70 20 Z" fill="#7BB8C4" stroke="#5E9BA8" strokeWidth="0.5" />
+      {/* Left Eye (wonky) */}
+      <circle cx="35" cy="50" r="6" fill="#FFFFFF" stroke="#000000" strokeWidth="1" />
+      <circle cx="37" cy="52" r="2" fill="#000000" />
+      {/* Right Eye (different size) */}
+      <circle cx="65" cy="55" r="7" fill="#FFFFFF" stroke="#000000" strokeWidth="1" />
+      <circle cx="63" cy="57" r="2" fill="#000000" />
+      {/* Nose */}
+      <ellipse cx="50" cy="70" rx="5" ry="4" fill="#000000" />
+      {/* Mouth */}
+      <path d="M 35 85 Q 50 95 65 85" stroke="#000000" strokeWidth="1.5" fill="none" />
+      {/* Tongue sticking out */}
+      <path d="M 50 85 Q 55 95 52 100 Q 47 97 50 87 Z" fill="#FF69B4" />
+      {/* Ugly spots */}
+      <circle cx="40" cy="65" r="1.5" fill="#5E9BA8" />
+      <circle cx="60" cy="70" r="1" fill="#5E9BA8" />
+    </g>
+  </svg>
+);
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -25,7 +53,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-xl" style={{ borderBottom: '1px solid rgba(152,245,255,0.1)' }} />
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex items-center justify-between h-18">
+        <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-3 group">
             <motion.div
               className="relative h-10 w-10"
@@ -33,17 +61,9 @@ const Header = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <div className="absolute inset-0 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'linear-gradient(to right, rgba(152,245,255,0.3), rgba(92,224,255,0.3))' }} />
-              <DotLottieReact
-                src="https://lottie.host/80a0680d-82d6-448e-8a0a-0158a25c1619/f2o0hTf4X2.json" // Placeholder Lottie URL
-                loop
-                autoplay
-                className="h-full w-full object-contain relative z-10"
-              />
-              {/* <img
-                src="/graphics/ulgy-dog-logo.svg"
-                alt="Ulyg Dog Logo"
-                className="h-full w-full object-contain relative z-10"
-              /> */}
+              <div className="h-full w-full object-contain relative z-10">
+                <LogoSVG />
+              </div>
             </motion.div>
             <span className="text-xl font-bold gradient-text-gold tracking-tight" style={{ color: '#98F5FF' }}>Ulyg Dog</span>
           </Link>
@@ -96,7 +116,7 @@ const Header = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="lg:hidden fixed inset-0 top-18 z-40"
+            className="lg:hidden fixed inset-0 top-20 z-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

@@ -5,7 +5,6 @@ import AnimatedOnScroll from '@/components/AnimatedOnScroll';
 import MeshBackground from '@/components/MeshBackground';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 /* ─── #98F5FF Theme Palette ─── */
 const BLUE = '#98F5FF';
@@ -172,19 +171,9 @@ const MemberIcon = ({ icon, color }: { icon: string; color: string }) => {
   return icons[icon] || null;
 };
 
-/* ─── Hero Illustration: Orbital Tech Constellation with Lottie ─── */
+/* ─── Hero Illustration: Orbital Tech Constellation ─── */
 const HeroTeamGraphic = () => (
   <div className="relative w-full max-w-2xl mx-auto h-[340px] md:h-[420px]">
-    {/* Background Lottie Animation */}
-    <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
-      <DotLottieReact
-        src="https://lottie.host/c5f23c16-9e62-4c67-9b91-05f7cf7a3d1e/WZy9wPbYdK.lottie"
-        loop
-        autoplay
-        className="w-[500px] h-[500px]"
-      />
-    </div>
-
     {/* Outer rotating ring with glow effect */}
     <motion.div
       className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] h-[280px] md:w-[360px] md:h-[360px]"
@@ -228,12 +217,12 @@ const HeroTeamGraphic = () => (
       animate={{ scale: [1, 1.05, 1] }}
       transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
     >
-      <DotLottieReact
-        src="https://lottie.host/80a0680d-82d6-448e-8a0a-0158a25c1619/f2o0hTf4X2.json"
-        loop
-        autoplay
-        className="w-full h-full"
-      />
+      {/* SVG Logo instead of Lottie */}
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <circle cx="50" cy="50" r="45" fill="rgba(152,245,255,0.1)" stroke="rgba(152,245,255,0.3)" strokeWidth="1"/>
+        <circle cx="50" cy="50" r="35" fill="rgba(152,245,255,0.15)"/>
+        <text x="50" y="55" textAnchor="middle" fill="#98F5FF" fontSize="20" fontWeight="900">ULGD</text>
+      </svg>
     </motion.div>
 
     {/* Static center emblem overlay - Hexagonal tech badge */}
@@ -592,16 +581,6 @@ export default function TeamPage() {
               animate={{ y: [0, -12, 0] }}
               transition={{ duration: 5, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
             >
-              {/* Background Lottie */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <DotLottieReact
-                  src="https://lottie.host/79010375-7f28-4394-a130-9b882f059293/c06g9pQ103.lottie"
-                  loop
-                  autoplay
-                  className="w-full h-full opacity-60"
-                />
-              </div>
-
               {/* Overlay SVG decoration */}
               <svg viewBox="0 0 200 200" className="absolute inset-0 w-full h-full">
                 <defs>

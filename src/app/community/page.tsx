@@ -5,7 +5,6 @@ import AnimatedOnScroll from '@/components/AnimatedOnScroll';
 import MeshBackground from '@/components/MeshBackground';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 /* ---- Floating Particles ---- */
 const FloatingParticles = () => (
@@ -63,17 +62,67 @@ const socialLinks = [
   },
 ];
 
-/* Community Lottie Graphic */
+/* Community Graphic - SVG Illustration */
 const CommunityGraphic = () => (
-  <div className="relative w-full h-full">
-    <DotLottieReact
-      src="https://lottie.host/79010375-7f28-4394-a130-9b882f059293/c06g9pQ103.lottie"
-      loop
-      autoplay
-      className="w-full h-full"
-    />
-    <div className="absolute inset-0 bg-gradient-radial from-[rgba(184,169,255,0.1)] to-transparent pointer-events-none" />
-  </div>
+  <svg viewBox="0 0 400 300" className="w-full h-full">
+    <defs>
+      <radialGradient id="commGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(152,245,255,0.2)"/>
+        <stop offset="100%" stopColor="transparent"/>
+      </radialGradient>
+      <linearGradient id="commGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#98F5FF"/>
+        <stop offset="50%" stopColor="#5CE0FF"/>
+        <stop offset="100%" stopColor="#B8A9FF"/>
+      </linearGradient>
+    </defs>
+    
+    {/* Background glow */}
+    <circle cx="200" cy="150" r="120" fill="url(#commGlow)"/>
+    
+    {/* Central network hub */}
+    <circle cx="200" cy="150" r="30" fill="rgba(152,245,255,0.15)" stroke="url(#commGrad)" strokeWidth="2"/>
+    <circle cx="200" cy="150" r="15" fill="url(#commGrad)"/>
+    
+    {/* Outer connected nodes */}
+    {[0, 72, 144, 216, 288].map((angle, i) => {
+      const rad = (angle * Math.PI) / 180;
+      const x = 200 + 80 * Math.cos(rad);
+      const y = 150 + 80 * Math.sin(rad);
+      return (
+        <g key={i}>
+          {/* Connection line */}
+          <line x1="200" y1="150" x2={x} y2={y} stroke="rgba(152,245,255,0.3)" strokeWidth="1.5" strokeDasharray="4 4">
+            <animate attributeName="stroke-dashoffset" from="8" to="0" dur="2s" repeatCount="indefinite"/>
+          </line>
+          {/* Node circle */}
+          <circle cx={x} cy={y} r="18" fill="rgba(152,245,255,0.1)" stroke={`rgba(152,245,255,${0.3 + (i * 0.1)})`} strokeWidth="1.5"/>
+          <circle cx={x} cy={y} r="8" fill={`rgba(152,245,255,${0.4 + (i * 0.1)})`}>
+            <animate attributeName="r" values="8;10;8" dur={`${2 + i * 0.5}s`} repeatCount="indefinite"/>
+          </circle>
+          {/* User icon in node */}
+          <circle cx={x} cy={y - 2} r="3" fill="white" opacity="0.8"/>
+          <path d={`M ${x - 5} ${y + 8} Q ${x} ${y + 3} ${x + 5} ${y + 8}`} fill="none" stroke="white" strokeWidth="1.5" opacity="0.8"/>
+        </g>
+      );
+    })}
+    
+    {/* Orbiting ring */}
+    <ellipse cx="200" cy="150" rx="100" ry="40" fill="none" stroke="rgba(152,245,255,0.15)" strokeWidth="1" transform="rotate(-30, 200, 150)">
+      <animateTransform attributeName="transform" type="rotate" from="-30 200 150" to="330 200 150" dur="20s" repeatCount="indefinite"/>
+    </ellipse>
+    
+    {/* Floating particles */}
+    {[60, 140, 260, 340].map((cx, i) => (
+      <circle key={i} cx={cx} cy={100 + (i % 2) * 40} r="2" fill="rgba(152,245,255,0.6)">
+        <animate attributeName="cy" values={`${100 + (i % 2) * 40};${80 + (i % 2) * 30};${100 + (i % 2) * 40}`} dur={`${3 + i}s`} repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.6;0.2;0.6" dur={`${2 + i * 0.5}s`} repeatCount="indefinite"/>
+      </circle>
+    ))}
+    
+    {/* Text label */}
+    <text x="200" y="260" textAnchor="middle" fill="rgba(152,245,255,0.6)" fontSize="12" fontFamily="Inter" letterSpacing="2">COMMUNITY</text>
+  </svg>
 );
 
 export default function CommunityPage() {
@@ -129,10 +178,10 @@ export default function CommunityPage() {
         />
       </div>
 
-      {/* Community Network Lottie Graphic */}
+      {/* Community Network Graphic */}
       <div className="container mx-auto px-6 max-w-md relative z-10 mb-10">
         <motion.div
-          className="holo-shine rounded-3xl p-4"
+          className="holo-shine rounded-3xl p-4 card-premium"
           initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
           animate={{ opacity: 1, scale: 1, rotateY: 0 }}
           transition={{ duration: 1, delay: 0.3, type: "spring" }}

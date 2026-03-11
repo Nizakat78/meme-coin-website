@@ -5,7 +5,6 @@ import AnimatedOnScroll from '@/components/AnimatedOnScroll';
 import FaqAccordion from '@/components/FaqAccordion';
 import MeshBackground from '@/components/MeshBackground';
 import { motion } from 'framer-motion';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 /* ---- Floating Particles ---- */
 const FloatingParticles = () => (
@@ -39,6 +38,46 @@ const FloatingParticles = () => (
   </>
 );
 
+/* FAQ Graphic SVG */
+const FaqGraphic = () => (
+  <svg viewBox="0 0 400 300" className="w-full h-full">
+    <defs>
+      <radialGradient id="faqGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(152,245,255,0.15)"/>
+        <stop offset="100%" stopColor="transparent"/>
+      </radialGradient>
+    </defs>
+    <circle cx="200" cy="150" r="120" fill="url(#faqGlow)"/>
+    
+    {/* Question mark */}
+    <motion.g
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      <text x="200" y="180" textAnchor="middle" fill="rgba(152,245,255,0.8)" fontSize="120" fontWeight="900" fontFamily="Inter">?</text>
+    </motion.g>
+    
+    {/* Decorative circles */}
+    {[...Array(8)].map((_, i) => {
+      const angle = (i * 45) * Math.PI / 180;
+      const x = 200 + 90 * Math.cos(angle);
+      const y = 150 + 90 * Math.sin(angle);
+      return (
+        <motion.circle
+          key={i}
+          cx={x}
+          cy={y}
+          r="4"
+          fill="rgba(152,245,255,0.4)"
+          animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.8, 0.4] }}
+          transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.15 }}
+        />
+      );
+    })}
+  </svg>
+);
+
 const faqItems = [
   {
     question: "What is Ulyg Dog ($ULGD)?",
@@ -61,19 +100,6 @@ const faqItems = [
     answer: "Our meme engineers are working to manifest the Ulygverse -- an immersive digital playground where ugliness reigns supreme. Keep an eye on our roadmap for updates. It will be ready when it reaches peak levels of magnificent imperfection."
   },
 ];
-
-/* FAQ Lottie Graphic */
-const FaqGraphic = () => (
-  <div className="relative w-full h-full">
-    <DotLottieReact
-      src="https://lottie.host/1ff719c9-c35e-4f3e-b8be-def6e8e39d75/XaJmq8hP9z.lottie"
-      loop
-      autoplay
-      className="w-full h-full"
-    />
-    <div className="absolute inset-0 bg-gradient-radial from-[rgba(152,245,255,0.1)] to-transparent pointer-events-none" />
-  </div>
-);
 
 export default function FaqPage() {
   return (
@@ -128,10 +154,10 @@ export default function FaqPage() {
         />
       </div>
 
-      {/* FAQ Lottie Graphic */}
+      {/* FAQ Graphic */}
       <div className="container mx-auto px-6 max-w-xs relative z-10 mb-6">
         <motion.div
-          className="holo-shine rounded-3xl p-4"
+          className="holo-shine rounded-3xl p-4 card-premium"
           initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
           animate={{ opacity: 1, scale: 1, rotateY: 0 }}
           transition={{ delay: 0.4, duration: 0.8, type: "spring" }}

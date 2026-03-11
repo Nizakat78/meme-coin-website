@@ -4,7 +4,6 @@ import AnimatedText from '@/components/AnimatedText';
 import AnimatedOnScroll from '@/components/AnimatedOnScroll';
 import MeshBackground from '@/components/MeshBackground';
 import { motion } from 'framer-motion';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 /* ---- Floating Particles ---- */
 const FloatingParticles = () => (
@@ -38,6 +37,39 @@ const FloatingParticles = () => (
   </>
 );
 
+/* Rocket SVG for Hero */
+const RocketHeroGraphic = () => (
+  <svg viewBox="0 0 400 400" className="w-full h-full">
+    <defs>
+      <radialGradient id="rocketGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(152,245,255,0.15)"/>
+        <stop offset="100%" stopColor="transparent"/>
+      </radialGradient>
+    </defs>
+    <circle cx="200" cy="200" r="150" fill="url(#rocketGlow)"/>
+    
+    {/* Rocket */}
+    <motion.g
+      animate={{ y: [0, -15, 0] }}
+      transition={{ duration: 3, repeat: Infinity }}
+    >
+      <g transform="translate(200, 200)">
+        <path d="M 0 -80 L -30 30 L 30 30 Z" fill="rgba(152,245,255,0.25)" stroke="rgba(152,245,255,0.5)" strokeWidth="2"/>
+        <circle cx="0" cy="-30" r="15" fill="rgba(152,245,255,0.15)" stroke="rgba(152,245,255,0.4)" strokeWidth="2"/>
+        <path d="M -30 20 L -50 50 L -30 30 Z" fill="rgba(152,245,255,0.2)" stroke="rgba(152,245,255,0.4)" strokeWidth="1"/>
+        <path d="M 30 20 L 50 50 L 30 30 Z" fill="rgba(152,245,255,0.2)" stroke="rgba(152,245,255,0.4)" strokeWidth="1"/>
+        <motion.path d="M -20 35 Q 0 80 20 35 Z" fill="#FFB8D9" animate={{ scaleY: [1, 1.3, 1] }} transition={{ duration: 0.2, repeat: Infinity }}/>
+        <motion.path d="M -10 35 Q 0 70 10 35 Z" fill="#FF69B4" animate={{ scaleY: [1, 1.4, 1] }} transition={{ duration: 0.15, repeat: Infinity }}/>
+      </g>
+    </motion.g>
+    
+    {/* Stars */}
+    {[...Array(20)].map((_, i) => (
+      <motion.circle key={i} cx={30 + (i * 18) % 340} cy={30 + (i * 23) % 300} r={1 + (i % 2)} fill="white" animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 2 + (i % 3), repeat: Infinity, delay: i * 0.1 }}/>
+    ))}
+  </svg>
+);
+
 const roadmapData = [
   { phase: 'Phase 1', title: 'The Incubation', desc: 'Launch the ULGD token, establish core smart contracts, and initiate the humble beginnings of our legendary journey. First memes birthed into existence.', status: 'Completed', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
   { phase: 'Phase 2', title: 'Stretching Our Paws', desc: 'Cultivate a thriving community across social platforms. Secure listings on key tracking sites and DEXes. Unleash community-driven marketing raids.', status: 'In Progress', icon: 'M13 10V3L4 14h7v7l9-11h-7z' },
@@ -63,19 +95,14 @@ export default function RoadmapPage() {
       <FloatingParticles />
 
       <div className="text-center py-20 lg:py-28 relative z-10 px-6">
-        {/* Hero Lottie Animation */}
+        {/* Hero Rocket Animation */}
         <motion.div
-          className="w-48 h-48 mx-auto mb-8 opacity-60"
+          className="w-64 h-64 mx-auto mb-8 opacity-60"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 0.6, scale: 1 }}
           transition={{ duration: 1 }}
         >
-          <DotLottieReact
-            src="https://lottie.host/aeba95e1-2e70-4f9e-99d0-9c1f30f7b1fb/rocket.lottie"
-            loop
-            autoplay
-            className="w-full h-full"
-          />
+          <RocketHeroGraphic />
         </motion.div>
 
         <motion.div

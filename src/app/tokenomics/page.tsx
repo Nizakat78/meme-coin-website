@@ -4,7 +4,6 @@ import AnimatedText from '@/components/AnimatedText';
 import AnimatedOnScroll from '@/components/AnimatedOnScroll';
 import MeshBackground from '@/components/MeshBackground';
 import { motion } from 'framer-motion';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 /* ---- Floating Particles Animation ---- */
 const FloatingParticles = () => (
@@ -138,16 +137,6 @@ export default function TokenomicsPage() {
             animate={{ opacity: 1, scale: 1, rotateY: 0 }}
             transition={{ duration: 1.2, type: "spring" }}
           >
-            {/* Background Lottie Animation */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
-              <DotLottieReact
-                src="https://lottie.host/c5f23c16-9e62-4c67-9b91-05f7cf7a3d1e/WZy9wPbYdK.lottie"
-                loop
-                autoplay
-                className="w-[500px] h-[500px]"
-              />
-            </div>
-
             <motion.div
               className="w-full max-w-sm holo-shine rounded-3xl p-6 relative"
               animate={{ y: [0, -8, 0] }}
@@ -338,16 +327,6 @@ export default function TokenomicsPage() {
             className="inline-block card-premium rounded-3xl p-10 relative overflow-hidden"
             whileHover={{ scale: 1.02 }}
           >
-            {/* Background Lottie */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-15 pointer-events-none">
-              <DotLottieReact
-                src="https://lottie.host/9c333066-512c-473d-8380-6927d6d1d4d0/vQ9x5gQ103.lottie"
-                loop
-                autoplay
-                className="w-64 h-64"
-              />
-            </div>
-
             <motion.div
               className="absolute inset-0 opacity-20"
               style={{ background: 'radial-gradient(circle at center, rgba(152,245,255,0.2), transparent 70%)' }}

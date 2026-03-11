@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const footerLinks = [
   { href: '/about', label: 'About' },
@@ -28,7 +27,7 @@ const socialLinks = [
     href: '#',
     icon: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
       </svg>
     ),
   },
@@ -42,6 +41,35 @@ const socialLinks = [
     ),
   },
 ];
+
+/* SVG Logo Component */
+const LogoSVG = () => (
+  <svg viewBox="0 0 100 100" className="w-full h-full">
+    <g transform="translate(5, 5) scale(0.9)">
+      {/* Head */}
+      <ellipse cx="50" cy="55" rx="40" ry="45" fill="#C5FAFF" stroke="#7BB8C4" strokeWidth="1" />
+      {/* Left Ear */}
+      <path d="M 20 30 Q 10 10 30 20 Z" fill="#7BB8C4" stroke="#5E9BA8" strokeWidth="0.5" />
+      {/* Right Ear */}
+      <path d="M 80 30 Q 90 10 70 20 Z" fill="#7BB8C4" stroke="#5E9BA8" strokeWidth="0.5" />
+      {/* Left Eye (wonky) */}
+      <circle cx="35" cy="50" r="6" fill="#FFFFFF" stroke="#000000" strokeWidth="1" />
+      <circle cx="37" cy="52" r="2" fill="#000000" />
+      {/* Right Eye (different size) */}
+      <circle cx="65" cy="55" r="7" fill="#FFFFFF" stroke="#000000" strokeWidth="1" />
+      <circle cx="63" cy="57" r="2" fill="#000000" />
+      {/* Nose */}
+      <ellipse cx="50" cy="70" rx="5" ry="4" fill="#000000" />
+      {/* Mouth */}
+      <path d="M 35 85 Q 50 95 65 85" stroke="#000000" strokeWidth="1.5" fill="none" />
+      {/* Tongue sticking out */}
+      <path d="M 50 85 Q 55 95 52 100 Q 47 97 50 87 Z" fill="#FF69B4" />
+      {/* Ugly spots */}
+      <circle cx="40" cy="65" r="1.5" fill="#5E9BA8" />
+      <circle cx="60" cy="70" r="1" fill="#5E9BA8" />
+    </g>
+  </svg>
+);
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -59,17 +87,9 @@ const Footer = () => {
             <Link href="/" className="flex items-center gap-3 mb-4 group">
               <div className="h-10 w-10 relative">
                 <div className="absolute inset-0 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: 'linear-gradient(to right, rgba(152,245,255,0.2), rgba(92,224,255,0.2))' }} />
-                <DotLottieReact
-                  src="https://lottie.host/80a0680d-82d6-448e-8a0a-0158a25c1619/f2o0hTf4X2.json" // Placeholder Lottie URL
-                  loop
-                  autoplay
-                  className="h-full w-full object-contain relative z-10"
-                />
-                {/* <img
-                  src="/graphics/ulgy-dog-logo.svg"
-                  alt="Ulyg Dog Logo"
-                  className="h-full w-full object-contain relative z-10"
-                /> */}
+                <div className="h-full w-full object-contain relative z-10">
+                  <LogoSVG />
+                </div>
               </div>
               <span className="text-xl font-bold gradient-text-gold">Ulyg Dog</span>
             </Link>

@@ -5,7 +5,6 @@ import AnimatedOnScroll from '@/components/AnimatedOnScroll';
 import MeshBackground from '@/components/MeshBackground';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 /* ---- Floating Particles ---- */
 const FloatingParticles = () => (
@@ -66,17 +65,54 @@ const steps = [
   },
 ];
 
-/* Premium Lottie Animation Graphic */
+/* Premium SVG Graphic */
 const BuyGuideGraphic = () => (
-  <div className="relative w-full h-full">
-    <DotLottieReact
-      src="https://lottie.host/9c333066-512c-473d-8380-6927d6d1d4d0/vQ9x5gQ103.lottie"
-      loop
-      autoplay
-      className="w-full h-full"
+  <svg viewBox="0 0 400 300" className="w-full h-full">
+    <defs>
+      <radialGradient id="buyGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="rgba(152,245,255,0.15)"/>
+        <stop offset="100%" stopColor="transparent"/>
+      </radialGradient>
+    </defs>
+    <circle cx="200" cy="150" r="120" fill="url(#buyGlow)"/>
+
+    {/* Wallet icon */}
+    <g transform="translate(150, 100)">
+      <rect x="0" y="20" width="80" height="50" rx="8" fill="rgba(152,245,255,0.15)" stroke="rgba(152,245,255,0.4)" strokeWidth="2"/>
+      <rect x="60" y="35" width="30" height="20" rx="4" fill="rgba(152,245,255,0.25)" stroke="rgba(152,245,255,0.5)" strokeWidth="1.5"/>
+      <circle cx="75" cy="45" r="3" fill="rgba(152,245,255,0.6)"/>
+    </g>
+
+    {/* Arrow */}
+    <motion.path
+      d="M 200 150 L 250 150"
+      stroke="rgba(152,245,255,0.5)"
+      strokeWidth="3"
+      strokeLinecap="round"
+      fill="none"
+      markerEnd="url(#arrowhead)"
+      animate={{ x: [0, 5, 0] }}
+      transition={{ duration: 1, repeat: Infinity }}
     />
-    <div className="absolute inset-0 bg-gradient-radial from-[rgba(152,245,255,0.1)] to-transparent pointer-events-none" />
-  </div>
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="rgba(152,245,255,0.6)"/>
+      </marker>
+    </defs>
+
+    {/* Coins */}
+    <g transform="translate(260, 120)">
+      <motion.circle
+        cx="0" cy="0" r="25"
+        fill="rgba(152,245,255,0.2)"
+        stroke="rgba(152,245,255,0.5)"
+        strokeWidth="2"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+      />
+      <text x="0" y="5" textAnchor="middle" fill="rgba(152,245,255,0.8)" fontSize="20" fontWeight="900">U</text>
+    </g>
+  </svg>
 );
 
 export default function HowToBuyPage() {

@@ -2,14 +2,13 @@
 
 import { motion, useAnimation, type Variants } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { useEffect, Children } from 'react';
+import { useEffect } from 'react';
 
 type AnimationType = 'fadeInUp' | 'fadeInLeft' | 'zoomIn';
 
 interface AnimatedOnScrollProps {
   children: React.ReactNode;
   className?: string;
-  stagger?: number;
   animationType?: AnimationType;
 }
 
@@ -49,7 +48,7 @@ const animationVariants: Record<AnimationType, Variants> = {
   },
 };
 
-const AnimatedOnScroll = ({ children, className, stagger = 0, animationType = 'fadeInUp' }: AnimatedOnScrollProps) => {
+const AnimatedOnScroll = ({ children, className, animationType = 'fadeInUp' }: AnimatedOnScrollProps) => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -70,22 +69,7 @@ const AnimatedOnScroll = ({ children, className, stagger = 0, animationType = 'f
       variants={animationVariants[animationType]}
       className={className}
     >
-      {stagger > 0 ? (
-        Children.map(children, (child, i) => (
-          <motion.div
-            key={i}
-            variants={animationVariants[animationType]}
-            custom={i}
-            initial="hidden"
-            animate={controls}
-            transition={{ delay: i * stagger }}
-          >
-            {child}
-          </motion.div>
-        ))
-      ) : (
-        children
-      )}
+      {children}
     </motion.div>
   );
 };

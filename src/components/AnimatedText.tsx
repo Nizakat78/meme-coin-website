@@ -10,37 +10,38 @@ const containerVariants: Variants = {
 };
 
 const charVariants: Variants = {
-    hidden: {
-        opacity: 0,
-        y: 20,
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.2, 0.65, 0.3, 0.9],
     },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.5,
-            ease: [0.2, 0.65, 0.3, 0.9],
-        },
-    },
+  },
 };
 
 interface AnimatedTextProps {
   text: string;
-  el?: keyof React.JSX.IntrinsicElements;
+  el?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'div' | 'span';
   className?: string;
 }
 
-const AnimatedText = ({ text, el: Wrapper = 'p', className }: AnimatedTextProps) => {
-    const words = text.split(' ');
+const AnimatedText = ({ text, el: Element = 'p', className }: AnimatedTextProps) => {
+  const words = text.split(' ');
 
   return (
-    <Wrapper className={className}>
+    <Element className={className}>
       <span className="sr-only">{text}</span>
       <motion.span
         initial="hidden"
         animate="visible"
         variants={containerVariants}
         aria-hidden
+        className="inline-block"
       >
         {words.map((word, wordIndex) => (
           <span key={wordIndex} className="inline-block whitespace-nowrap">
@@ -53,12 +54,11 @@ const AnimatedText = ({ text, el: Wrapper = 'p', className }: AnimatedTextProps)
                 {char}
               </motion.span>
             ))}
-            {/* Add space between words */}
-            {wordIndex < words.length -1 && <span className="inline-block">&nbsp;</span>}
+            {wordIndex < words.length - 1 && <span className="inline-block">&nbsp;</span>}
           </span>
         ))}
       </motion.span>
-    </Wrapper>
+    </Element>
   );
 };
 

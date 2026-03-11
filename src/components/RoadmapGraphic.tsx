@@ -1,6 +1,7 @@
 "use client";
 
 // src/components/RoadmapGraphic.tsx
+import * as React from 'react';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 

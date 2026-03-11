@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(timeout 10 bash -c 'until curl -s http://localhost:3001 > /dev/null 2>&1; do sleep 1; done; echo \"\"Site is accessible\"\"')"
-    ]
-  }
-}
