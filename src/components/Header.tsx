@@ -60,12 +60,12 @@ const Header = () => {
               whileHover={{ rotate: 10, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <div className="absolute inset-0 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'linear-gradient(to right, rgba(152,245,255,0.3), rgba(92,224,255,0.3))' }} />
+              <div className="absolute inset-0 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'linear-gradient(to right, rgba(74,222,128,0.3), rgba(34,211,191,0.3))' }} />
               <div className="h-full w-full object-contain relative z-10">
                 <LogoSVG />
               </div>
             </motion.div>
-            <span className="text-xl font-bold gradient-text-gold tracking-tight" style={{ color: '#98F5FF' }}>Ulyg Dog</span>
+            <span className="text-xl font-bold gradient-text-green tracking-tight" style={{ color: '#4ade80' }}>Ulyg Dog</span>
           </Link>
 
           {/* Desktop Nav */}
@@ -74,10 +74,10 @@ const Header = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className="relative text-gray-400 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 group hover:text-[#98F5FF]"
+                className="relative text-gray-400 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 group hover:text-[#4ade80]"
               >
                 <span className="relative z-10">{link.label}</span>
-                <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'rgba(152,245,255,0.05)' }} />
+                <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'rgba(74,222,128,0.05)' }} />
               </Link>
             ))}
           </div>
@@ -90,19 +90,19 @@ const Header = () => {
           >
             <div className="w-6 h-5 flex flex-col justify-between">
               <motion.span
-                style={{ background: '#98F5FF' }}
+                style={{ background: '#4ade80' }}
                 className="w-full h-0.5 block rounded-full origin-left"
                 animate={isOpen ? { rotate: 45, y: -1 } : { rotate: 0, y: 0 }}
                 transition={{ duration: 0.3 }}
               />
               <motion.span
-                style={{ background: '#98F5FF' }}
+                style={{ background: '#4ade80' }}
                 className="w-full h-0.5 block rounded-full"
                 animate={isOpen ? { opacity: 0, x: -20 } : { opacity: 1, x: 0 }}
                 transition={{ duration: 0.3 }}
               />
               <motion.span
-                style={{ background: '#98F5FF' }}
+                style={{ background: '#4ade80' }}
                 className="w-full h-0.5 block rounded-full origin-left"
                 animate={isOpen ? { rotate: -45, y: 1 } : { rotate: 0, y: 0 }}
                 transition={{ duration: 0.3 }}
@@ -141,7 +141,7 @@ const Header = () => {
                   >
                     <Link
                       href={link.href}
-                      className="block text-lg font-medium text-gray-300 hover:text-[#98F5FF] py-3 px-4 rounded-xl hover:bg-[rgba(152,245,255,0.05)] transition-all duration-300 border border-transparent hover:border-[rgba(152,245,255,0.1)]"
+                      className="block text-lg font-medium text-gray-300 hover:text-[#4ade80] py-3 px-4 rounded-xl hover:bg-[rgba(74,222,128,0.05)] transition-all duration-300 border border-transparent hover:border-[rgba(74,222,128,0.1)]"
                       onClick={() => setIsOpen(false)}
                     >
                       {link.label}

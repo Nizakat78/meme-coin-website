@@ -91,7 +91,7 @@ const Footer = () => {
                   <LogoSVG />
                 </div>
               </div>
-              <span className="text-xl font-bold gradient-text-gold">Ulyg Dog</span>
+              <span className="text-xl font-bold gradient-text-green">Ulyg Dog</span>
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
               The ugliest, most authentic meme coin on the blockchain. Built for the community, by the community.
@@ -100,13 +100,13 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: 'rgba(152,245,255,0.8)' }}>Quick Links</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: 'rgba(74,222,128,0.8)' }}>Quick Links</h4>
             <div className="grid grid-cols-2 gap-2">
               {footerLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-gray-500 hover:text-[#98F5FF] text-sm transition-colors duration-300"
+                  className="text-gray-500 hover:text-[#4ade80] text-sm transition-colors duration-300"
                 >
                   {link.label}
                 </Link>
@@ -116,13 +116,13 @@ const Footer = () => {
 
           {/* Social */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: 'rgba(152,245,255,0.8)' }}>Join the Pack</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-wider mb-4" style={{ color: 'rgba(74,222,128,0.8)' }}>Join the Pack</h4>
             <div className="flex gap-3">
               {socialLinks.map((social) => (
                 <motion.a
                   key={social.name}
                   href={social.href}
-                  className="w-10 h-10 rounded-xl bg-gray-900/50 border border-gray-800 flex items-center justify-center text-gray-500 hover:text-[#98F5FF] hover:border-[rgba(152,245,255,0.3)] transition-all duration-300"
+                  className="w-10 h-10 rounded-xl bg-gray-900/50 border border-gray-800 flex items-center justify-center text-gray-500 hover:text-[#4ade80] hover:border-[rgba(74,222,128,0.3)] transition-all duration-300"
                   whileHover={{ y: -3, scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={social.name}

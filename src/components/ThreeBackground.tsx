@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
+import dynamic from "next/dynamic";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
 // Dynamic imports for Three.js components to avoid SSR issues
@@ -24,90 +25,97 @@ const SparklesWrapper = async () => {
   return Sparkles;
 };
 
-import dynamic from "next/dynamic";
+const MeshDistortMaterialWrapper = async () => {
+  const { MeshDistortMaterial } = await import("@react-three/drei");
+  return MeshDistortMaterial;
+};
 
 const Canvas = dynamic(CanvasWrapper, { ssr: false, loading: () => null });
 const Float = dynamic(FloatWrapper, { ssr: false, loading: () => null });
 const Stars = dynamic(StarsWrapper, { ssr: false, loading: () => null });
 const Sparkles = dynamic(SparklesWrapper, { ssr: false, loading: () => null });
+const MeshDistortMaterial = dynamic(MeshDistortMaterialWrapper, { ssr: false, loading: () => null });
 
-// Pre-generate random values for geometry selection using a fixed seed approach
-const useRandomGeometry = (seed: number) => {
-  return useMemo(() => {
-    const geometries = [
-      new THREE.IcosahedronGeometry(1, 0),
-      new THREE.OctahedronGeometry(1, 0),
-      new THREE.TetrahedronGeometry(1, 0),
-      new THREE.TorusGeometry(0.7, 0.3, 8, 16),
-    ];
-    // Use a deterministic pseudo-random based on seed
-    const randomIndex = Math.abs(Math.sin(seed) * 10000) % geometries.length;
-    return geometries[Math.floor(randomIndex)];
-  }, [seed]);
-};
-
-// Pre-generate random particle positions using seeded random
-const useParticlePositions = (count: number, radius: number, seed: number) => {
-  return useMemo(() => {
-    const positions = new Float32Array(count * 3);
-    let localSeed = seed;
-    for (let i = 0; i < count; i++) {
-      const angle = (i / count) * Math.PI * 2;
-      // Seeded pseudo-random
-      localSeed = Math.sin(localSeed * 12.9898) * 43758.5453;
-      const randomVal = localSeed - Math.floor(localSeed);
-      positions[i * 3] = Math.cos(angle) * radius;
-      positions[i * 3 + 1] = (randomVal - 0.5) * 0.5;
-      positions[i * 3 + 2] = Math.sin(angle) * radius;
+// Floating geometric shapes with distortions
+function FloatingShape({ position, color, scale, speed, type = "icosahedron" }: { 
+  position: [number, number, number]; 
+  color: string; 
+  scale: number; 
+  speed: number;
+  type?: string;
+}) {
+  const meshRef = useRef<THREE.Mesh>(null);
+  
+  const geometry = useMemo(() => {
+    switch(type) {
+      case "octahedron":
+        return new THREE.OctahedronGeometry(1, 0);
+      case "tetrahedron":
+        return new THREE.TetrahedronGeometry(1, 0);
+      case "torus":
+        return new THREE.TorusGeometry(0.7, 0.3, 8, 16);
+      default:
+        return new THREE.IcosahedronGeometry(1, 0);
     }
-    return positions;
-  }, [count, radius, seed]);
-};
-
-// Floating geometric shapes
-function FloatingShape({ position, color, scale, seed }: { position: [number, number, number]; color: string; scale: number; seed: number }) {
-  const geometry = useRandomGeometry(seed);
+  }, [type]);
 
   return (
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-      <mesh position={position} scale={[scale, scale, scale]}>
+    <Float speed={speed * 2} rotationIntensity={speed} floatIntensity={speed}>
+      <mesh ref={meshRef} position={position} scale={[scale, scale, scale]}>
         <primitive object={geometry} attach="geometry" />
-        <meshStandardMaterial
+        <MeshDistortMaterial
           color={color}
           transparent
-          opacity={0.6}
-          metalness={0.8}
-          roughness={0.2}
+          opacity={0.7}
+          metalness={0.9}
+          roughness={0.1}
           emissive={color}
-          emissiveIntensity={0.3}
+          emissiveIntensity={0.5}
+          distort={0.4}
+          speed={speed * 2}
         />
       </mesh>
     </Float>
   );
 }
 
-// Animated coin/token
+// Animated 3D Token/Coin
 function FloatingToken() {
+  const meshRef = useRef<THREE.Mesh>(null);
+
   return (
-    <mesh position={[0, 0, 2]} scale={[0.5, 0.5, 0.5]}>
-      <cylinderGeometry args={[1, 1, 0.2, 32]} attach="geometry" />
-      <meshStandardMaterial
-        color="#98F5FF"
-        metalness={0.9}
+    <mesh ref={meshRef} position={[0, 0, 2]} scale={[0.6, 0.6, 0.6]}>
+      <cylinderGeometry args={[1, 1, 0.3, 64]} attach="geometry" />
+      <MeshDistortMaterial
+        color="#4ade80"
+        metalness={1}
         roughness={0.1}
-        emissive="#98F5FF"
-        emissiveIntensity={0.5}
+        emissive="#22c55e"
+        emissiveIntensity={0.8}
+        distort={0.2}
+        speed={2}
       />
     </mesh>
   );
 }
 
-// Particle ring
-function ParticleRing({ radius, count, color, seed }: { radius: number; count: number; color: string; seed: number }) {
-  const particles = useParticlePositions(count, radius, seed);
+// Particle ring with animation
+function ParticleRing({ radius, count, color, speed }: { radius: number; count: number; color: string; speed: number }) {
+  const pointsRef = useRef<THREE.Points>(null);
+
+  const particles = useMemo(() => {
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const angle = (i / count) * Math.PI * 2;
+      positions[i * 3] = Math.cos(angle) * radius;
+      positions[i * 3 + 1] = (Math.sin(angle * 3) - 0.5) * 0.5;
+      positions[i * 3 + 2] = Math.sin(angle) * radius;
+    }
+    return positions;
+  }, [radius, count]);
 
   return (
-    <points>
+    <points ref={pointsRef}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
@@ -118,13 +126,32 @@ function ParticleRing({ radius, count, color, seed }: { radius: number; count: n
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.05}
+        size={0.08}
         color={color}
         transparent
-        opacity={0.6}
+        opacity={0.8}
         sizeAttenuation
+        blending={THREE.AdditiveBlending}
       />
     </points>
+  );
+}
+
+// Animated sphere with glow
+function GlowingSphere({ position, color, scale }: { position: [number, number, number]; color: string; scale: number }) {
+  return (
+    <mesh position={position} scale={[scale, scale, scale]}>
+      <sphereGeometry args={[1, 32, 32]} attach="geometry" />
+      <MeshDistortMaterial
+        color={color}
+        transparent
+        opacity={0.3}
+        emissive={color}
+        emissiveIntensity={0.8}
+        distort={0.3}
+        speed={3}
+      />
+    </mesh>
   );
 }
 
@@ -132,27 +159,35 @@ function ParticleRing({ radius, count, color, seed }: { radius: number; count: n
 function Scene() {
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} intensity={1} color="#98F5FF" />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#B8A9FF" />
-      <spotLight position={[0, 10, 0]} intensity={0.8} color="#5CE0FF" />
+      <ambientLight intensity={0.3} />
+      <pointLight position={[10, 10, 10]} intensity={1.5} color="#4ade80" />
+      <pointLight position={[-10, -10, -10]} intensity={1} color="#22d3bf" />
+      <spotLight position={[0, 10, 0]} intensity={1.2} color="#86efac" />
+      <pointLight position={[0, -10, 0]} intensity={0.8} color="#a78bfa" />
 
       {/* Stars background */}
-      <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+      <Stars radius={100} depth={50} count={8000} factor={4} saturation={0.5} fade speed={2} />
 
       {/* Sparkles */}
-      <Sparkles count={100} scale={12} size={4} speed={0.4} opacity={0.5} color="#98F5FF" />
+      <Sparkles count={150} scale={14} size={5} speed={0.6} opacity={0.7} color="#4ade80" />
 
-      {/* Floating geometric shapes with unique seeds */}
-      <FloatingShape position={[-4, 2, -5]} color="#98F5FF" scale={0.8} seed={1} />
-      <FloatingShape position={[4, -2, -6]} color="#B8A9FF" scale={0.6} seed={2} />
-      <FloatingShape position={[-3, -3, -4]} color="#5CE0FF" scale={0.5} seed={3} />
-      <FloatingShape position={[3, 3, -7]} color="#FFB8D9" scale={0.7} seed={4} />
-      <FloatingShape position={[0, 4, -5]} color="#A8FFD4" scale={0.4} seed={5} />
+      {/* Floating geometric shapes with various types */}
+      <FloatingShape position={[-5, 3, -6]} color="#4ade80" scale={0.9} speed={1.5} type="icosahedron" />
+      <FloatingShape position={[5, -3, -7]} color="#22d3bf" scale={0.7} speed={1.2} type="octahedron" />
+      <FloatingShape position={[-4, -4, -5]} color="#86efac" scale={0.6} speed={1.8} type="tetrahedron" />
+      <FloatingShape position={[4, 4, -8]} color="#38bdf8" scale={0.8} speed={1.3} type="torus" />
+      <FloatingShape position={[0, 5, -6]} color="#a78bfa" scale={0.5} speed={1.6} type="icosahedron" />
+      <FloatingShape position={[-6, -2, -4]} color="#f472b6" scale={0.4} speed={2} type="torus" />
 
-      {/* Particle rings with unique seeds */}
-      <ParticleRing radius={6} count={50} color="#98F5FF" seed={6} />
-      <ParticleRing radius={8} count={80} color="#B8A9FF" seed={7} />
+      {/* Glowing spheres */}
+      <GlowingSphere position={[7, 2, -5]} color="#4ade80" scale={0.8} />
+      <GlowingSphere position={[-7, -3, -6]} color="#22d3bf" scale={0.6} />
+      <GlowingSphere position={[3, -5, -7]} color="#86efac" scale={0.5} />
+
+      {/* Particle rings */}
+      <ParticleRing radius={7} count={60} color="#4ade80" speed={0.5} />
+      <ParticleRing radius={9} count={80} color="#22d3bf" speed={0.3} />
+      <ParticleRing radius={11} count={100} color="#86efac" speed={0.2} />
 
       {/* Floating token in center */}
       <FloatingToken />
@@ -164,7 +199,7 @@ export default function ThreeBackground() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <Canvas
-        camera={{ position: [0, 0, 8], fov: 75 }}
+        camera={{ position: [0, 0, 10], fov: 60 }}
         gl={{ antialias: true, alpha: true }}
         dpr={[1, 2]}
       >

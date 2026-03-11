@@ -44,23 +44,23 @@ const HeroGraphic = () => {
         {/* Background glow */}
         <defs>
           <radialGradient id="heroGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="rgba(152,245,255,0.15)"/>
+            <stop offset="0%" stopColor="rgba(74,222,128,0.2)"/>
             <stop offset="100%" stopColor="transparent"/>
           </radialGradient>
         </defs>
         <circle cx="200" cy="200" r="150" fill="url(#heroGlow)"/>
         
         {/* Moon surface */}
-        <ellipse cx="200" cy="350" rx="180" ry="60" fill="rgba(152,245,255,0.05)" stroke="rgba(152,245,255,0.2)" strokeWidth="1"/>
+        <ellipse cx="200" cy="350" rx="180" ry="60" fill="rgba(74,222,128,0.05)" stroke="rgba(74,222,128,0.2)" strokeWidth="1"/>
         
         {/* Dog astronaut body */}
         <g transform="translate(200, 220)">
           {/* Spacesuit body */}
-          <ellipse cx="0" cy="40" rx="50" ry="60" fill="rgba(152,245,255,0.2)" stroke="rgba(152,245,255,0.4)" strokeWidth="2"/>
+          <ellipse cx="0" cy="40" rx="50" ry="60" fill="rgba(74,222,128,0.2)" stroke="rgba(74,222,128,0.4)" strokeWidth="2"/>
           
           {/* Helmet */}
-          <circle cx="0" cy="-30" r="45" fill="rgba(152,245,255,0.1)" stroke="rgba(152,245,255,0.5)" strokeWidth="2"/>
-          <ellipse cx="0" cy="-25" rx="35" ry="30" fill="rgba(152,245,255,0.05)" stroke="rgba(152,245,255,0.3)" strokeWidth="1"/>
+          <circle cx="0" cy="-30" r="45" fill="rgba(74,222,128,0.1)" stroke="rgba(74,222,128,0.5)" strokeWidth="2"/>
+          <ellipse cx="0" cy="-25" rx="35" ry="30" fill="rgba(74,222,128,0.05)" stroke="rgba(74,222,128,0.3)" strokeWidth="1"/>
           
           {/* Dog face inside helmet */}
           <circle cx="-15" cy="-35" r="6" fill="white" opacity="0.9"/>
@@ -72,12 +72,12 @@ const HeroGraphic = () => {
           <path d="M 0 -10 Q 3 -5 0 0" stroke="#FF69B4" strokeWidth="2" fill="none"/>
           
           {/* Ears */}
-          <ellipse cx="-40" cy="-40" rx="15" ry="20" fill="rgba(152,245,255,0.3)" stroke="rgba(152,245,255,0.5)" strokeWidth="1"/>
-          <ellipse cx="40" cy="-40" rx="15" ry="20" fill="rgba(152,245,255,0.3)" stroke="rgba(152,245,255,0.5)" strokeWidth="1"/>
+          <ellipse cx="-40" cy="-40" rx="15" ry="20" fill="rgba(74,222,128,0.3)" stroke="rgba(74,222,128,0.5)" strokeWidth="1"/>
+          <ellipse cx="40" cy="-40" rx="15" ry="20" fill="rgba(74,222,128,0.3)" stroke="rgba(74,222,128,0.5)" strokeWidth="1"/>
           
           {/* Backpack */}
-          <rect x="-55" y="-20" width="15" height="50" rx="3" fill="rgba(152,245,255,0.25)" stroke="rgba(152,245,255,0.4)" strokeWidth="1"/>
-          <rect x="40" y="-20" width="15" height="50" rx="3" fill="rgba(152,245,255,0.25)" stroke="rgba(152,245,255,0.4)" strokeWidth="1"/>
+          <rect x="-55" y="-20" width="15" height="50" rx="3" fill="rgba(74,222,128,0.25)" stroke="rgba(74,222,128,0.4)" strokeWidth="1"/>
+          <rect x="40" y="-20" width="15" height="50" rx="3" fill="rgba(74,222,128,0.25)" stroke="rgba(74,222,128,0.4)" strokeWidth="1"/>
         </g>
         
         {/* Rocket */}
@@ -86,11 +86,11 @@ const HeroGraphic = () => {
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         >
           <g transform="translate(320, 100)">
-            <path d="M 0 60 L -20 100 L 20 100 Z" fill="rgba(152,245,255,0.3)" stroke="rgba(152,245,255,0.5)" strokeWidth="1"/>
-            <circle cx="0" cy="110" r="15" fill="rgba(152,245,255,0.15)" stroke="rgba(152,245,255,0.4)" strokeWidth="1"/>
+            <path d="M 0 60 L -20 100 L 20 100 Z" fill="rgba(74,222,128,0.3)" stroke="rgba(74,222,128,0.5)" strokeWidth="1"/>
+            <circle cx="0" cy="110" r="15" fill="rgba(74,222,128,0.15)" stroke="rgba(74,222,128,0.4)" strokeWidth="1"/>
             <motion.path
               d="M -10 120 Q 0 150 10 120 Z"
-              fill="#FFB8D9"
+              fill="#4ade80"
               animate={{ scaleY: [1, 1.3, 1] }}
               transition={{ duration: 0.3, repeat: Infinity }}
             />
@@ -104,7 +104,7 @@ const HeroGraphic = () => {
             cx={30 + (i * 18) % 340}
             cy={30 + (i * 23) % 200}
             r={1 + (i % 3)}
-            fill="white"
+            fill="#4ade80"
             animate={{ opacity: [0.3, 1, 0.3] }}
             transition={{ duration: 2 + (i % 3), repeat: Infinity, delay: i * 0.1 }}
           />
@@ -119,15 +119,15 @@ const SupplyGraphic = () => (
   <svg viewBox="0 0 200 200" className="w-full h-full">
     <defs>
       <radialGradient id="supplyGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="rgba(152,245,255,0.2)"/>
+        <stop offset="0%" stopColor="rgba(74,222,128,0.2)"/>
         <stop offset="100%" stopColor="transparent"/>
       </radialGradient>
     </defs>
     <circle cx="100" cy="100" r="80" fill="url(#supplyGlow)"/>
-    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(152,245,255,0.3)" strokeWidth="2" strokeDasharray="8 4"/>
-    <text x="100" y="95" textAnchor="middle" fill="#98F5FF" fontSize="28" fontWeight="900">1B</text>
+    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(74,222,128,0.3)" strokeWidth="2" strokeDasharray="8 4"/>
+    <text x="100" y="95" textAnchor="middle" fill="#4ade80" fontSize="28" fontWeight="900">1B</text>
     <text x="100" y="120" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="10">SUPPLY</text>
-    <motion.circle cx="100" cy="100" r="50" fill="none" stroke="rgba(152,245,255,0.2)" strokeWidth="1">
+    <motion.circle cx="100" cy="100" r="50" fill="none" stroke="rgba(74,222,128,0.2)" strokeWidth="1">
       <animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="20s" repeatCount="indefinite"/>
     </motion.circle>
   </svg>
@@ -137,14 +137,14 @@ const ZeroTaxGraphic = () => (
   <svg viewBox="0 0 200 200" className="w-full h-full">
     <defs>
       <radialGradient id="zeroGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="rgba(92,224,255,0.2)"/>
+        <stop offset="0%" stopColor="rgba(34,211,191,0.2)"/>
         <stop offset="100%" stopColor="transparent"/>
       </radialGradient>
     </defs>
     <circle cx="100" cy="100" r="80" fill="url(#zeroGlow)"/>
-    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(92,224,255,0.3)" strokeWidth="2"/>
-    <text x="100" y="110" textAnchor="middle" fill="#5CE0FF" fontSize="48" fontWeight="900">0%</text>
-    <motion.path d="M 60 100 L 85 125 L 140 70" fill="none" stroke="#5CE0FF" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(34,211,191,0.3)" strokeWidth="2"/>
+    <text x="100" y="110" textAnchor="middle" fill="#4ade80" fontSize="48" fontWeight="900">0%</text>
+    <motion.path d="M 60 100 L 85 125 L 140 70" fill="none" stroke="#4ade80" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
       <animate attributeName="stroke-dasharray" from="0 200" to="200 0" dur="1s" fill="freeze"/>
     </motion.path>
   </svg>
@@ -154,13 +154,13 @@ const CommunityGraphicSmall = () => (
   <svg viewBox="0 0 200 200" className="w-full h-full">
     <defs>
       <radialGradient id="commGlowSmall" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="rgba(184,169,255,0.2)"/>
+        <stop offset="0%" stopColor="rgba(74,222,128,0.2)"/>
         <stop offset="100%" stopColor="transparent"/>
       </radialGradient>
     </defs>
     <circle cx="100" cy="100" r="80" fill="url(#commGlowSmall)"/>
     {/* Central node */}
-    <circle cx="100" cy="100" r="20" fill="rgba(184,169,255,0.2)" stroke="rgba(184,169,255,0.4)" strokeWidth="2"/>
+    <circle cx="100" cy="100" r="20" fill="rgba(74,222,128,0.2)" stroke="rgba(74,222,128,0.4)" strokeWidth="2"/>
     {/* Outer nodes */}
     {[0, 120, 240].map((angle, i) => {
       const rad = (angle * Math.PI) / 180;
@@ -168,9 +168,9 @@ const CommunityGraphicSmall = () => (
       const y = 100 + 50 * Math.sin(rad);
       return (
         <g key={i}>
-          <line x1="100" y1="100" x2={x} y2={y} stroke="rgba(184,169,255,0.3)" strokeWidth="1.5"/>
-          <circle cx={x} cy={y} r="12" fill="rgba(184,169,255,0.15)" stroke="rgba(184,169,255,0.4)" strokeWidth="1.5"/>
-          <circle cx={x} cy={y} r="5" fill="rgba(184,169,255,0.5)"/>
+          <line x1="100" y1="100" x2={x} y2={y} stroke="rgba(74,222,128,0.3)" strokeWidth="1.5"/>
+          <circle cx={x} cy={y} r="12" fill="rgba(74,222,128,0.15)" stroke="rgba(74,222,128,0.4)" strokeWidth="1.5"/>
+          <circle cx={x} cy={y} r="5" fill="rgba(74,222,128,0.5)"/>
         </g>
       );
     })}
@@ -182,7 +182,7 @@ const StatsGraphic = () => (
   <svg viewBox="0 0 400 300" className="w-full h-full">
     <defs>
       <radialGradient id="statsGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="rgba(152,245,255,0.15)"/>
+        <stop offset="0%" stopColor="rgba(74,222,128,0.15)"/>
         <stop offset="100%" stopColor="transparent"/>
       </radialGradient>
     </defs>
@@ -193,7 +193,7 @@ const StatsGraphic = () => (
       const heights = [60, 100, 80, 140, 120, 180, 160];
       return (
         <motion.g key={i}>
-          <rect x={x} y={250 - heights[i]} width="25" height={heights[i]} fill="rgba(152,245,255,0.2)" stroke="rgba(152,245,255,0.4)" strokeWidth="1" rx="3">
+          <rect x={x} y={250 - heights[i]} width="25" height={heights[i]} fill="rgba(74,222,128,0.2)" stroke="rgba(74,222,128,0.4)" strokeWidth="1" rx="3">
             <animate attributeName="height" from="0" to={heights[i]} dur="0.8s" fill="freeze"/>
           </rect>
         </motion.g>
@@ -204,7 +204,7 @@ const StatsGraphic = () => (
     <motion.path
       d="M 40 190 L 100 150 L 160 170 L 220 110 L 280 130 L 340 70"
       fill="none"
-      stroke="rgba(152,245,255,0.6)"
+      stroke="rgba(74,222,128,0.6)"
       strokeWidth="3"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -223,8 +223,8 @@ const StatsGraphic = () => (
         cx={point.x}
         cy={point.y}
         r="5"
-        fill="rgba(152,245,255,0.3)"
-        stroke="rgba(152,245,255,0.6)"
+        fill="rgba(74,222,128,0.3)"
+        stroke="rgba(74,222,128,0.6)"
         strokeWidth="2"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
@@ -251,7 +251,7 @@ const FloatingDecorations = () => (
         transition={{ duration: dur, repeat: Infinity, ease: "easeInOut", delay: i * 1.5 }}
       >
         <svg viewBox="0 0 100 100" className="w-full h-full">
-          <polygon points="50,5 90,25 90,75 50,95 10,75 10,25" fill="none" stroke="rgba(152,245,255,0.2)" strokeWidth="1"/>
+          <polygon points="50,5 90,25 90,75 50,95 10,75 10,25" fill="none" stroke="rgba(74,222,128,0.2)" strokeWidth="1"/>
         </svg>
       </motion.div>
     ))}
@@ -269,7 +269,7 @@ const FloatingDecorations = () => (
         transition={{ duration: dur, repeat: Infinity, ease: "easeInOut", delay: i * 2 }}
       >
         <svg viewBox="0 0 100 100" className="w-full h-full">
-          <polygon points="50,5 95,50 50,95 5,50" fill="none" stroke="rgba(184,169,255,0.15)" strokeWidth="1"/>
+          <polygon points="50,5 95,50 50,95 5,50" fill="none" stroke="rgba(34,211,191,0.15)" strokeWidth="1"/>
         </svg>
       </motion.div>
     ))}
@@ -283,8 +283,8 @@ const FloatingDecorations = () => (
           top: `${top}%`,
           width: size,
           height: size,
-          background: i % 2 === 0 ? "rgba(152,245,255,0.06)" : "rgba(184,169,255,0.05)",
-          border: "1px solid rgba(152,245,255,0.1)"
+          background: i % 2 === 0 ? "rgba(74,222,128,0.06)" : "rgba(34,211,191,0.05)",
+          border: "1px solid rgba(74,222,128,0.1)"
         }}
         animate={{
           y: [0, -25 - i * 5, 0],
@@ -323,7 +323,7 @@ export default function Home() {
           <AnimatedText
             text="Don't Just HODL. Get ULYG."
             el="h1"
-            className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-4 gradient-text-gold text-glow leading-[0.95]"
+            className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-4 gradient-text-green text-glow leading-[0.95]"
           />
           <AnimatedText
             text="The Meme Coin That Embraces Chaos"
@@ -350,10 +350,10 @@ export default function Home() {
             <Link href="/whitepaper">
               <motion.button
                 className="px-8 py-3.5 rounded-full text-lg font-bold border-2 transition-all duration-300"
-                style={{ borderColor: 'rgba(92,224,255,0.4)', color: '#98F5FF' }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(152,245,255,0.1)' }}
+                style={{ borderColor: 'rgba(74,222,128,0.4)', color: '#4ade80' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(74,222,128,0.1)' }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
-                whileHover={{ scale: 1.05, borderColor: "rgba(152,245,255,0.6)" }}
+                whileHover={{ scale: 1.05, borderColor: "rgba(74,222,128,0.6)" }}
                 whileTap={{ scale: 0.95 }}
               >
                 The Ulyg Paper
@@ -384,7 +384,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <AnimatedOnScroll>
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-black tracking-tighter gradient-text-gold mb-4">Why ULGD?</h2>
+              <h2 className="text-3xl md:text-5xl font-black tracking-tighter gradient-text-green mb-4">Why ULGD?</h2>
               <p className="text-gray-500 text-lg max-w-2xl mx-auto">Built different. Built ugly. Built to last.</p>
             </div>
           </AnimatedOnScroll>
@@ -411,7 +411,7 @@ export default function Home() {
                   >
                     {feat.graphic}
                   </motion.div>
-                  <h3 className="text-xl font-bold mb-3" style={{ color: '#98F5FF' }}>{feat.title}</h3>
+                  <h3 className="text-xl font-bold mb-3" style={{ color: '#4ade80' }}>{feat.title}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed">{feat.desc}</p>
                 </motion.div>
               </AnimatedOnScroll>
@@ -438,10 +438,10 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold mb-4" style={{ color: '#98F5FF', background: 'rgba(152,245,255,0.1)', border: '1px solid rgba(152,245,255,0.2)' }}>
+              <div className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold mb-4" style={{ color: '#4ade80', background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)' }}>
                 UGLYNOMICS
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold gradient-text-gold mb-4">The Ugly Truth in Numbers</h2>
+              <h2 className="text-3xl md:text-4xl font-bold gradient-text-green mb-4">The Ugly Truth in Numbers</h2>
               <p className="text-gray-400 leading-relaxed mb-6">
                 Our tokenomics are designed for long-term growth. Fair distribution, zero tax, and a community treasury that fuels the entire ecosystem.
               </p>
@@ -461,7 +461,7 @@ export default function Home() {
                     transition={{ delay: i * 0.1, duration: 0.4 }}
                     whileHover={{ scale: 1.05 }}
                   >
-                    <div className="text-xl font-bold" style={{ color: '#98F5FF' }}>{stat.val}</div>
+                    <div className="text-xl font-bold" style={{ color: '#4ade80' }}>{stat.val}</div>
                     <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
                   </motion.div>
                 ))}
@@ -475,7 +475,7 @@ export default function Home() {
       <div className="relative z-10 py-20 px-6">
         <AnimatedOnScroll>
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-black tracking-tighter gradient-text-gold mb-6">Ready to Get Ugly?</h2>
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter gradient-text-green mb-6">Ready to Get Ugly?</h2>
             <p className="text-gray-400 text-lg mb-10 max-w-xl mx-auto">Join the most authentic meme coin community and embrace the chaos.</p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/how-to-buy">
@@ -486,8 +486,8 @@ export default function Home() {
               <Link href="/community">
                 <motion.button
                   className="px-8 py-3.5 rounded-full text-lg font-bold border-2 transition-all duration-300"
-                  style={{ borderColor: 'rgba(184,169,255,0.4)', color: '#B8A9FF' }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(184,169,255,0.1)' }}
+                  style={{ borderColor: 'rgba(34,211,191,0.4)', color: '#22d3bf' }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(34,211,191,0.1)' }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -500,7 +500,7 @@ export default function Home() {
         </AnimatedOnScroll>
       </div>
 
-      <div className="h-px bg-gradient-to-r from-transparent to-transparent" style={{ backgroundImage: 'linear-gradient(to right, transparent, rgba(152,245,255,0.2), transparent)' }} />
+      <div className="h-px bg-gradient-to-r from-transparent to-transparent" style={{ backgroundImage: 'linear-gradient(to right, transparent, rgba(74,222,128,0.2), transparent)' }} />
     </motion.div>
   );
 }
